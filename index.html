@@ -2214,8 +2214,9 @@
         // canvas.addEventListener('mouseup', dropImg)
         alert(isAndroid)
         if (isAndroid || isiOS) {
-            
-            window.ontouchstart = function (e) { e.preventDefault(); };
+            document.oncontextmenu = function (e) {
+                e.preventDefault();
+            };
         }
 
         else {

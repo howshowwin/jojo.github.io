@@ -2172,6 +2172,7 @@
                 oldimgX = movingImage.width / movingImage.naturalWidth
                 oldimgY = movingImage.height / movingImage.naturalHeight
             }
+            dropImg(e)
             console.log(imgDragOffset.offsetX)
         }
 
@@ -2217,21 +2218,24 @@
             document.oncontextmenu = function (e) {
                 e.preventDefault();
             };
-            defaultImg.addEventListener('touchstart', saveImg)
-            imgset.addEventListener('touchstart', saveImg)
-            canvas.on('mouse:up', dropImg)
+            // defaultImg.addEventListener('touchstart', saveImg)
+            // imgset.addEventListener('touchstart', saveImg)
+            // canvas.on('mouse:up', dropImg)
 
 
         // }
 
         // else {
-            // canvas.on('drop', dropImg)
-            // // canvas.on('touchend', dropImg)
+            canvas.on("touch:drag",dropImg)
+            canvas.on('drop', dropImg)
+            // canvas.on('touchend', dropImg)
+            defaultImg.addEventListener('click', saveImg)
+            imgset.addEventListener('click', saveImg)
 
-            // defaultImg.addEventListener('mousedown', saveImg)
-            // imgset.addEventListener('mousedown', saveImg)
-            // defaultImg.addEventListener('tap', saveImg)
-            // imgset.addEventListener('tap', saveImg)
+            defaultImg.addEventListener('mousedown', saveImg)
+            imgset.addEventListener('mousedown', saveImg)
+            defaultImg.addEventListener('tap', saveImg)
+            imgset.addEventListener('tap', saveImg)
 
         // }
 

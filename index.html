@@ -2212,28 +2212,28 @@
 
         }
         // canvas.addEventListener('mouseup', dropImg)
-        alert(isAndroid)
-        if (isAndroid || isiOS) {
+        // alert(isAndroid)
+        // if (isAndroid || isiOS) {
             document.oncontextmenu = function (e) {
                 e.preventDefault();
             };
-            defaultImg.addEventListener('touchstart', saveImg)
-            imgset.addEventListener('touchstart', saveImg)
-            canvas.on('touchend', dropImg)
-
-
-        }
-
-        else {
-            canvas.on('drop', dropImg)
-            // canvas.on('touchend', dropImg)
-
             defaultImg.addEventListener('mousedown', saveImg)
             imgset.addEventListener('mousedown', saveImg)
-            defaultImg.addEventListener('tap', saveImg)
-            imgset.addEventListener('tap', saveImg)
+            canvas.on('mouse:up', dropImg)
 
-        }
+
+        // }
+
+        // else {
+            // canvas.on('drop', dropImg)
+            // // canvas.on('touchend', dropImg)
+
+            // defaultImg.addEventListener('mousedown', saveImg)
+            // imgset.addEventListener('mousedown', saveImg)
+            // defaultImg.addEventListener('tap', saveImg)
+            // imgset.addEventListener('tap', saveImg)
+
+        // }
 
 
         fabric.Object.prototype.customiseCornerIcons({

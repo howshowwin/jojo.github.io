@@ -2215,27 +2215,34 @@
         // canvas.addEventListener('mouseup', dropImg)
         // alert(isAndroid)
         // if (isAndroid || isiOS) {
-            document.oncontextmenu = function (e) {
-                e.preventDefault();
-            };
-            // defaultImg.addEventListener('touchstart', saveImg)
-            // imgset.addEventListener('touchstart', saveImg)
-            // canvas.on('mouse:up', dropImg)
-
+        document.oncontextmenu = function (e) {
+            e.preventDefault();
+        };
+        // defaultImg.addEventListener('touchstart', saveImg)
+        // imgset.addEventListener('touchstart', saveImg)
+        // canvas.on('mouse:up', dropImg)
+        fabric.Image.fromURL('img/ta1.png', function (img) {
+            img.scale(0.5).set({
+                left: 150,
+                top: 150,
+                angle: -15
+            });
+            canvas.add(img).setActiveObject(img);
+        });
 
         // }
 
         // else {
-            canvas.on("touch:drag",dropImg)
-            canvas.on('drop', dropImg)
-            // canvas.on('touchend', dropImg)
-            defaultImg.addEventListener('click', saveImg)
-            imgset.addEventListener('click', saveImg)
+        canvas.on("touch:drag", dropImg)
+        canvas.on('drop', dropImg)
+        // canvas.on('touchend', dropImg)
+        defaultImg.addEventListener('click', saveImg)
+        imgset.addEventListener('click', saveImg)
 
-            defaultImg.addEventListener('mousedown', saveImg)
-            imgset.addEventListener('mousedown', saveImg)
-            defaultImg.addEventListener('tap', saveImg)
-            imgset.addEventListener('tap', saveImg)
+        defaultImg.addEventListener('mousedown', saveImg)
+        imgset.addEventListener('mousedown', saveImg)
+        defaultImg.addEventListener('tap', saveImg)
+        imgset.addEventListener('tap', saveImg)
 
         // }
 

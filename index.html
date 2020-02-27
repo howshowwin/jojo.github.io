@@ -2217,6 +2217,11 @@
             document.oncontextmenu = function (e) {
                 e.preventDefault();
             };
+            defaultImg.addEventListener('touchstart', saveImg)
+            imgset.addEventListener('touchstart', saveImg)
+            canvas.on('touchend', dropImg)
+
+
         }
 
         else {

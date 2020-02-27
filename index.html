@@ -2217,8 +2217,8 @@
             document.oncontextmenu = function (e) {
                 e.preventDefault();
             };
-            defaultImg.addEventListener('mousedown', saveImg)
-            imgset.addEventListener('mousedown', saveImg)
+            defaultImg.addEventListener('touchstart', saveImg)
+            imgset.addEventListener('touchstart', saveImg)
             canvas.on('mouse:up', dropImg)
 
 

@@ -2212,30 +2212,13 @@
 
         }
         // canvas.addEventListener('mouseup', dropImg)
-        // if (isAndroid || isiOS) {
-            touch.on('#defaultImg', 'touchstart', function (ev) {
-                ev.preventDefault();
-            });
+        if (isAndroid || isiOS) {
+            $('.pic_number').bind('contextmenu', function (e) {
+                e.preventDefault();
+            })
 
-            var target = document.getElementById("defaultImg");
-            var dx, dy;
+        }
 
-            touch.on('#defaultImg', 'drag', function (ev) {
-                dx = dx || 0;
-                dy = dy || 0;
-                log("当前x值为:" + dx + ", 当前y值为:" + dy + ".");
-                var offx = dx + ev.x + "px";
-                var offy = dy + ev.y + "px";
-                this.style.webkitTransform = "translate3d(" + offx + "," + offy + ",0)";
-            });
-
-            touch.on('#defaultImg', 'dragend', function (ev) {
-                dx += ev.x;
-                dy += ev.y;
-            });
-
-        // } 
-        
         // else {
         //     canvas.on('drop', dropImg)
         //     // canvas.on('touchend', dropImg)

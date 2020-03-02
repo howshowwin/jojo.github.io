@@ -1135,6 +1135,37 @@
             //     $('#').hide(); 
             // }
         });
+        $('body').bind('touchstart', function (event) {
+            var evt = event.srcElement ? event.srcElement : event.target;
+            var arrjiji = []
+
+            var opop = event.target.classList.length
+
+            for (i = 0; i < opop; i++) {
+                arrjiji.push(event.target.classList[i])
+                // if (opop[i] == "box-pic" || opop[i] == "in-flex-box" ||opop[i]=="font-box"||opop[i]=="in-layout" ) return;
+                // else {
+                //     $('.in-layout').hide();
+                // }
+            }
+            for (i = 0; i < arrjiji.length; i++) {
+                if (arrjiji[i] == "box-pic" || arrjiji[i] == "font-box" || arrjiji[i] == "choose_btn") return;
+                else {
+                    $(".in-layout").css({
+                        right: "-80%"
+                    })
+                }
+            }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+            // }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+        });
         var btn_sentence = false
         var btn_words = false
         var btn_new_words = false
@@ -2247,7 +2278,7 @@
                 w = 0
             }
             else if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 + e.target.width > ($('.canvas_wrapper').width())) {
-                w = $('.canvas_wrapper').width() - e.target.width/2 - 70
+                w = $('.canvas_wrapper').width()*999 + e.target.width/2 
             }
             else{
                 w = e.changedTouches[0].clientX - yoyo - e.target.width 

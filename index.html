@@ -2199,7 +2199,6 @@
             document.body.appendChild(copyObj);
             // console.log(e.targetTouches[0].clientY - e.target.offsetTop)
             copyObj.style.position = "absolute"
-            copyObj.style.transition = "0.1s"
             copyObj.style.top = e.target.y + "px"
             copyObj.style.left = e.target.x + "px"
             copyObj.style.zIndex = "9999"
@@ -2207,7 +2206,7 @@
 
 
             copyObj.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
-            copyObj.style.left = e.targetTouches[0].clientX - e.target.width / 2 + "px"
+            copyObj.style.left = e.targetTouches[0].clientX - e.target.width / 2- spcial_move + "px"
             jijo = copyObj
         }
         var odX
@@ -2220,7 +2219,7 @@
             jijo.style.transition = "none"
 
             jijo.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
-            jijo.style.left = e.targetTouches[0].clientX - e.target.width / 2 + "px"
+            jijo.style.left = e.targetTouches[0].clientX - e.target.width / 2 - spcial_move+ "px"
 
             odX = e.targetTouches[0].clientX - e.target.width / 2
             odY = e.targetTouches[0].clientY - e.target.height / 2
@@ -2244,11 +2243,11 @@
                 h = e.changedTouches[0].clientY - yoyot - e.target.height / 2
             }
             let w
-            if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 < 0) {
+            if (e.changedTouches[0].clientX - yoyo - e.target.width / 2  < 0) {
                 w = 0
             }
             else if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 + e.target.width > ($('.canvas_wrapper').width())) {
-                w = $('.canvas_wrapper').width() - e.target.width - 20
+                w = $('.canvas_wrapper').width() - e.target.width/2 - 20
             }
             else{
                 w = e.changedTouches[0].clientX - yoyo - e.target.width 

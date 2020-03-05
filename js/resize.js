@@ -38,8 +38,8 @@ function convertSizeALL(className) {
     $("body").css("margin-left", (iw - Math.round(w * sRatio)) / 2);
     $("body").css("margin-top", "0");
     $("body").css("zoom", "100%");
-    canvas.setHeight(900*sRatio);
-    canvas.setWidth(1340*sRatio);
+    canvas.setHeight(900 * sRatio);
+    canvas.setWidth(1340 * sRatio);
     sR = Math.min(xRatio, yRatio);
     spcial_move = (iw - Math.round(w * sRatio)) / 2
     b4_inline_style = `width:${Math.round(90 * sRatio) + "px"};height:auto;`
@@ -87,25 +87,30 @@ function convertSizeALL(className) {
 
     // canvas.setHeight(  canvasHH); 
     // canvas.setWidth(  canvasWW); 
-    if($('.dotbox').width()<65){
-        $('.dotbox').css({top: "80%" })
-        $('.ab-bb-next').css({top: "80%" })
-        $('.ab-bb-pre').css({top: "80%" })
-        $('.next').css({top: "80%" })
-        $('.pre').css({top: "80%" })
+    if ($('.dotbox').width() < 65) {
+        $('.dotbox').css({ top: "80%" })
+        $('.ab-bb-next').css({ top: "80%" })
+        $('.ab-bb-pre').css({ top: "80%" })
+        $('.next').css({ top: "80%" })
+        $('.pre').css({ top: "80%" })
 
-    }else if(($('.dotbox').width()>60)){
-        $('.dotbox').css({top: "85.5%" })
-        $('.ab-bb-next').css({top: "85.5%" })
-        $('.ab-bb-pre').css({top: "85.5%" })
-        $('.next').css({top: "85.5%" })
-        $('.pre').css({top: "85.5%" })
+    } else if (($('.dotbox').width() > 60)) {
+        $('.dotbox').css({ top: "85.5%" })
+        $('.ab-bb-next').css({ top: "85.5%" })
+        $('.ab-bb-pre').css({ top: "85.5%" })
+        $('.next').css({ top: "85.5%" })
+        $('.pre').css({ top: "85.5%" })
     }
 
     // canvas.renderAll(); 
     change_img = $("#defaultImg").css('width')
     console.log("1" + change_img)
 
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+if(isiOS==false){
     let scalenow = parseInt(change_img) / parseInt(width_img)
     image_q.forEach((obj) => {
         console.log(obj._element.x
@@ -127,6 +132,8 @@ function convertSizeALL(className) {
     canvas.discardActiveObject().renderAll()
     // canvas.discardActiveObject().renderAll()
     canvas.renderAll()
+}
+
     setword()
     width_img = change_img
     // width_img = $("#defaultImg").css('width')

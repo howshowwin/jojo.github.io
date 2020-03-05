@@ -111,27 +111,27 @@ function convertSizeALL(className) {
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
 // if(isiOS==false){
-    // let scalenow = parseInt(change_img) / parseInt(width_img)
-    // image_q.forEach((obj) => {
-    //     console.log(obj._element.x
-    //     )
-        
-    //     obj.scaleX = obj.scaleX * scalenow
+    let scalenow = parseInt(change_img) / parseInt(width_img)
+    image_q.forEach((obj) => {
+        console.log(obj._element.x
+        )
 
-    //     obj.scaleY = obj.scaleY * scalenow
-    //     obj.left = obj.left * scalenow
-    //     obj.top = obj.top * scalenow
-    //     //這樣才會改變控制
-    //     obj.setCoords()
-    //     // obj.width=  obj._element.naturalWidth* scalenow
-    //     // obj.height=  obj._element.naturalHeigh* scalenow
+        obj.scaleX = obj.scaleX * scalenow
+
+        obj.scaleY = obj.scaleY * scalenow
+        obj.left = obj.left * scalenow
+        obj.top = obj.top * scalenow
+        //這樣才會改變控制
+        obj.setCoords()
+        // obj.width=  obj._element.naturalWidth* scalenow
+        // obj.height=  obj._element.naturalHeigh* scalenow
 
 
-    // });
+    });
 
+    canvas.discardActiveObject().renderAll()
     // canvas.discardActiveObject().renderAll()
-    // // canvas.discardActiveObject().renderAll()
-    // canvas.renderAll()
+    canvas.renderAll()
 // }
 
     setword()

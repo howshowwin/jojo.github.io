@@ -2304,11 +2304,9 @@
             image_qq.set({
                 borderColor: 'rgba(0,0,0,0)'
             })
-            movingImage = ""
-
-            // allpic = allpic + 1
-            // canvas.add(image_qq)
-            // image_q[allpic] = image_qq
+            allpic = allpic + 1
+            canvas.add(image_qq)
+            image_q[allpic] = image_qq
         }
         // function handleFile() {
         //     const fileReader = new FileReader();
@@ -2370,9 +2368,9 @@
             image_qq.set({
                 borderColor: 'rgba(0,0,0,0)'
             })
-            // allpic = allpic + 1
+            allpic = allpic + 1
             canvas.add(image_qq)
-            // image_q[allpic] = image_qq
+            image_q[allpic] = image_qq
             movingImage = ""
         }
 
@@ -2696,7 +2694,7 @@
                 canvas.renderAll()
             }
         })
-var  allpic
+
 
         canvas.on('mouse:up', e => {
             if (e.target) {

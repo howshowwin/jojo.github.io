@@ -99,7 +99,7 @@
                 "grid100 grid101 grid102 grid103 ";
         }
 
-        canvas {}
+       
 
         .grid1 {
             grid-area: grid1;
@@ -204,13 +204,13 @@
         .class8 img,
         .class9 img,
         .class10 img {
-            filter: brightness(20%);
+            filter: brightness(60%);
             cursor: not-allowed;
 
         }
 
         .class6:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
 
 
         }
@@ -746,7 +746,7 @@
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
-        if(isiOS || isAndroid){
+        if( isAndroid){
                       //     // function Close() {
         //     //     window.open('', '_self', '');
         //     //     // setInterval(function () { window.close() }

@@ -2304,6 +2304,8 @@
             image_qq.set({
                 borderColor: 'rgba(0,0,0,0)'
             })
+            movingImage = ""
+
             // allpic = allpic + 1
             // canvas.add(image_qq)
             // image_q[allpic] = image_qq
@@ -2322,6 +2324,7 @@
         // }
 
         var popo = $('.append_box_word').offset().left
+        var allpic = 0
         var image_q = new Array()
         function dropImg(e) {
             const { offsetX, offsetY } = e.e
@@ -2693,7 +2696,7 @@
                 canvas.renderAll()
             }
         })
-
+var  allpic
 
         canvas.on('mouse:up', e => {
             if (e.target) {

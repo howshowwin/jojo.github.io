@@ -6578,7 +6578,8 @@
 
 
 
-       //     // function Close() {
+
+     //     // function Close() {
         //     //     window.open('', '_self', '');
         //     //     // setInterval(function () { window.close() }
         //     //     // ,100)
@@ -6643,7 +6644,6 @@
         var b4_inline_style = `width:${Math.round(90 * sRatio) + "px"};height:auto;`
 
         var popo = $('.append_box_word').offset().left
-
 
         $(window).resize(function () {
 
@@ -6938,37 +6938,6 @@
             })
         })
         $('body').bind('click', function (event) {
-            var evt = event.srcElement ? event.srcElement : event.target;
-            var arrjiji = []
-
-            var opop = event.target.classList.length
-
-            for (i = 0; i < opop; i++) {
-                arrjiji.push(event.target.classList[i])
-                // if (opop[i] == "box-pic" || opop[i] == "in-flex-box" ||opop[i]=="font-box"||opop[i]=="in-layout" ) return;
-                // else {
-                //     $('.in-layout').hide();
-                // }
-            }
-            for (i = 0; i < arrjiji.length; i++) {
-                if (arrjiji[i] == "box-pic" || arrjiji[i] == "font-box" || arrjiji[i] == "choose_btn") return;
-                else {
-                    $(".in-layout").css({
-                        right: "-80%"
-                    })
-                }
-            }
-            // if (opop == "koko") return; 
-            // else {
-            //     $('#').hide(); 
-            // }
-            // }
-            // if (opop == "koko") return; 
-            // else {
-            //     $('#').hide(); 
-            // }
-        });
-        $('body').bind('touchstart', function (event) {
             var evt = event.srcElement ? event.srcElement : event.target;
             var arrjiji = []
 
@@ -8032,8 +8001,6 @@
         var oldimgY = ''
 
         function saveImg(e) {
-            console.log(e)
-
             if (e.target.tagName.toLowerCase() === 'img') {
 
                 imgDragOffset.offsetX = e.clientX - e.target.offsetLeft
@@ -8042,98 +8009,10 @@
                 oldimgX = movingImage.width / movingImage.naturalWidth
                 oldimgY = movingImage.height / movingImage.naturalHeight
             }
-
-            // console.log(imgDragOffset)
+            dropImg(e)
+            console.log(imgDragOffset.offsetX)
         }
-        var jijo = ''
-        function saveFoneImg(e) {
-            // console.log(e.targetTouches[0].clientX)
-            // console.log(e)
 
-            if (e.target.tagName.toLowerCase() === 'img') {
-
-                imgDragOffset.offsetX = e.targetTouches[0].clientX - e.target.width / 2
-                imgDragOffset.offsetY = e.targetTouches[0].clientY - e.target.height / 2
-                movingImage = e.target
-                oldimgX = movingImage.width / movingImage.naturalWidth
-                oldimgY = movingImage.height / movingImage.naturalHeight
-            }
-
-            let copyObj = movingImage.cloneNode(true);
-            document.body.appendChild(copyObj);
-            // console.log(e.targetTouches[0].clientY - e.target.offsetTop)
-            copyObj.style.position = "absolute"
-            copyObj.style.top = e.target.y + "px"
-            copyObj.style.left = e.target.x + "px"
-            copyObj.style.zIndex = "9999"
-            copyObj.style.opacity = "0.6"
-
-
-            copyObj.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
-            copyObj.style.left = e.targetTouches[0].clientX - e.target.width / 2- spcial_move + "px"
-            jijo = copyObj
-        }
-        var odX
-        var odY
-        function drag(e) {
-
-
-            e.preventDefault();
-            console.log(e)
-            jijo.style.transition = "none"
-
-            jijo.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
-            jijo.style.left = e.targetTouches[0].clientX - e.target.width / 2 - spcial_move+ "px"
-
-            odX = e.targetTouches[0].clientX - e.target.width / 2
-            odY = e.targetTouches[0].clientY - e.target.height / 2
-        }
-        var push = false
-
-        function pushimg(e) {
-            let yoyo = $('.canvas_wrapper').offset().left
-            let yoyot = $('.canvas_wrapper').offset().top
-
-            let offsetY = odY
-            let offsetX = odX
-            document.body.removeChild(jijo);
-            console.log(spcial_move)
-            let h
-            if (e.changedTouches[0].clientY - yoyot - e.target.height / 2 < 0) {
-                h = 35
-            } else if ((e.changedTouches[0].clientY - yoyot - e.target.height / 2 + e.target.height) > ($('.canvas_wrapper').height())) {
-                h = $('.canvas_wrapper').height() - e.target.height - 20
-            } else {
-                h = e.changedTouches[0].clientY - yoyot - e.target.height / 2
-            }
-            let w
-            if (e.changedTouches[0].clientX - yoyo - e.target.width / 2  < 0) {
-                w = 0
-            }
-            else if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 + e.target.width > ($('.canvas_wrapper').width())) {
-                w = $('.canvas_wrapper').width()*999 + e.target.width/2 
-            }
-            else{
-                w = e.changedTouches[0].clientX - yoyo - e.target.width 
-            }
-            const image_qq = new fabric.Image(movingImage, {
-                width: movingImage.naturalWidth,
-                height: movingImage.naturalHeight,
-                scaleX: movingImage.width / movingImage.naturalWidth,
-                scaleY: movingImage.height / movingImage.naturalHeight,
-                top: h,
-                left: w ,
-                // top: (offsetY - imgDragOffset.offsetY + jiji * 8.5) < 0 ? 35 : (offsetY - imgDragOffset.offsetY + jiji * 8.5),
-                // left: (offsetX - imgDragOffset.offsetX + popo),
-                lockScalingFlip: true
-            })
-
-
-            canvas.add(image_qq)
-            image_qq.set({
-                borderColor: 'rgba(0,0,0,0)'
-            })
-        }
         // function handleFile() {
         //     const fileReader = new FileReader();
         //     fileReader.readAsDataURL(this.files[0])
@@ -8168,11 +8047,8 @@
             image_qq.set({
                 borderColor: 'rgba(0,0,0,0)'
             })
-            movingImage = ""
+
         }
-
-
-
         // canvas.addEventListener('mouseup', dropImg)
         // alert(isAndroid)
         // if (isAndroid || isiOS) {
@@ -8182,34 +8058,30 @@
         // defaultImg.addEventListener('touchstart', saveImg)
         // imgset.addEventListener('touchstart', saveImg)
         // canvas.on('mouse:up', dropImg)
-        // fabric.Image.fromURL('img/ta1.png', function (img) {
-        //     img.scale(0.5).set({
-        //         left: 150,
-        //         top: 150,
-        //         angle: -15
-        //     });
-        //     canvas.add(img).setActiveObject(img);
-        // });
+        fabric.Image.fromURL('img/ta1.png', function (img) {
+            img.scale(0.5).set({
+                left: 150,
+                top: 150,
+                angle: -15
+            });
+            canvas.add(img).setActiveObject(img);
+        });
 
         // }
 
-
         // else {
-        // canvas.on("touch:drag", dropImg)
+        canvas.on("touch:drag", dropImg)
         canvas.on('drop', dropImg)
         // canvas.on('touchend', dropImg)
-        // defaultImg.addEventListener('click', saveImg)
-        // imgset.addEventListener('click', saveImg)
+        defaultImg.addEventListener('click', saveImg)
+        imgset.addEventListener('click', saveImg)
 
         defaultImg.addEventListener('mousedown', saveImg)
         imgset.addEventListener('mousedown', saveImg)
-        // defaultImg.addEventListener('tap', saveImg)
-        // imgset.addEventListener('tap', saveImg)
+        defaultImg.addEventListener('tap', saveImg)
+        imgset.addEventListener('tap', saveImg)
 
-        imgset.addEventListener('touchstart', saveFoneImg)
         // }
-        imgset.addEventListener("touchmove", drag);
-        imgset.addEventListener("touchend", pushimg);
 
 
         fabric.Object.prototype.customiseCornerIcons({
@@ -8464,7 +8336,6 @@
         // fabric.Canvas.prototype.cursorMap[8] = 'pointer'
         // fabric.Canvas.prototype.cursorMap[9] = 'pointer'
         // fabric.Canvas.prototype.cursorMap[1] = 'pointer'
-
 
 
 

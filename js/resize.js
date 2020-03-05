@@ -115,7 +115,7 @@ function convertSizeALL(className) {
     image_q.forEach((obj) => {
         console.log(obj._element.x
         )
-
+        
         obj.scaleX = obj.scaleX * scalenow
 
         obj.scaleY = obj.scaleY * scalenow

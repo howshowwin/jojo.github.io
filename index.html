@@ -1,0 +1,4693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注音教學長短牌</title>
+    <script src="js/fabric.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="js/resize.js"></script>
+    <script src="data/data_1.js"></script>
+    <script src="data/data_2.js"></script>
+    <script src="data/data_3.js"></script>
+    <script src="data/data_4.js"></script>
+    <script src="data/data_5.js"></script>
+    <script src="data/data_6.js"></script>
+    <script src="data/data_7.js"></script>
+    <script src="data/data_8.js"></script>
+    <script src="data/data_9.js"></script>
+    <script src="data/data_10.js"></script>
+    <script src="js/customiseControls.js"></script>
+    <style type="text/css">
+        body {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            position: relative;
+        }
+    </style>
+
+
+    <!-- <script src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.min.css"> -->
+    <!-- <script src="js/cannotdrag.js"></script> -->
+    <style>
+        .outside_frame {
+            background: url(img/page/p1.png);
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+        }
+
+        .outside_frame_main {
+            background: url(img/index/index.png);
+            position: absolute;
+            top: 0;
+            background-size: cover;
+            z-index: 100;
+            /* transition: 1.5s; */
+        }
+
+
+        .append_box_word {
+            position: absolute;
+            z-index: 99;
+            /* background: #ddd; */
+            display: grid;
+            top: 17%;
+            left: 73%;
+        }
+
+        .new_words_grid {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-areas:
+                "grid7 grid4 grid1 "
+                "grid8 grid5 grid2"
+                "grid9 grid6 grid3 ";
+        }
+
+        .words_grid {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas:
+                "grid5 grid3 grid1 "
+                "grid6 grid4 grid2";
+            align-content: space-between;
+            grid-auto-flow: row;
+
+        }
+
+        .sentence_grid {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas:
+                "grid3 grid2 grid1 ";
+
+        }
+
+        .symbol_grid {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+
+            grid-template-areas:
+                "grid4 grid3 grid2 grid1 "
+                "grid8 grid7 grid6 grid5"
+                "grid100 grid101 grid102 grid103 ";
+        }
+
+        canvas {}
+
+        .grid1 {
+            grid-area: grid1;
+        }
+
+        .grid2 {
+            grid-area: grid2;
+        }
+
+        .grid3 {
+            grid-area: grid3;
+        }
+
+        .grid4 {
+            grid-area: grid4;
+        }
+
+        .grid5 {
+            grid-area: grid5;
+        }
+
+        .grid6 {
+            grid-area: grid6;
+        }
+
+        .grid7 {
+            grid-area: grid7;
+        }
+
+        .grid8 {
+            grid-area: grid8;
+        }
+
+        .grid9 {
+            grid-area: grid9;
+        }
+
+        .ab {
+            position: absolute;
+        }
+
+        .next {
+            top: 85%;
+            left: 73%;
+            z-index: 1;
+        }
+
+        .pre {
+            top: 85%;
+            z-index: 1;
+            left: 90%;
+
+        }
+
+        .ab img {
+            pointer-events: none;
+        }
+
+        .display_none {
+            display: none;
+        }
+
+        .canvas_wrapper {
+            position: absolute;
+            top: 2%;
+            left: 3%;
+            overflow: hidden;
+            /* border: 2px solid red; */
+
+        }
+
+        .classindex img {
+
+            cursor: pointer;
+        }
+
+        .classindex:hover {
+            transform: scale(1.00);
+
+        }
+
+        [draggable] {
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -khtml-user-drag: element;
+            -webkit-user-drag: element;
+            cursor: move;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .class1 img,
+        .class2 img,
+        .class3 img,
+        .class4 img,
+        .class5 img,
+        .class7 img,
+        .class8 img,
+        .class9 img,
+        .class10 img {
+            filter: brightness(20%);
+            cursor: not-allowed;
+
+        }
+
+        .class6:hover {
+            transform: scale(1.05);
+
+
+        }
+
+        .light {
+            /* pointer-events: none; */
+            /* cursor: not-allowed; */
+            cursor: not-allowed;
+            filter: brightness(108%);
+
+        }
+
+        .classBox_main {
+            position: absolute;
+            z-index: 150;
+            top: 81.5%;
+            left: 6.6%;
+            display: flex;
+
+        }
+
+        .choose_class_area {
+            width: 90%;
+            position: absolute;
+            top: 85%;
+
+        }
+
+        .moveOut {
+            top: -100%;
+            opacity: 0;
+        }
+
+
+
+        .classBox {
+            width: 100%;
+            position: absolute;
+            top: 70%;
+
+
+        }
+
+        .class_area1 {
+            left: 5%;
+        }
+
+        .class_area2 {
+            left: 20%;
+        }
+
+        .class_area3 {
+            left: 35%;
+        }
+
+        .class_area4 {
+            left: 50%;
+        }
+
+        .cover_class {
+            left: 0;
+            opacity: 0;
+        }
+
+        .re_btn {
+            right: 10%;
+            top: 90%;
+        }
+
+        .del_btn {
+            right: 0;
+            top: 90%;
+
+        }
+
+        .opcZero {
+            opacity: 0;
+        }
+
+        .display_none {
+            display: none;
+        }
+
+        .btn_choose {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            right: 0.5%;
+            top: 20%;
+
+        }
+
+        .btn_choose .btn {
+            margin-top: -1px;
+
+
+        }
+
+        .btn_sentence {
+            background: url(img/page/ba2.png);
+            background-size: cover;
+        }
+
+        .btn_words {
+            background: url(img/page/bb1.png);
+            background-size: cover;
+        }
+
+        .btn_new_words {
+            background: url(img/page/bc1.png);
+            background-size: cover;
+
+        }
+
+        .btn_symbol {
+            background: url(img/page/bd1.png);
+            background-size: cover;
+        }
+
+        .btn_sentence:hover {
+            background: url(img/page/ba2.png);
+            background-size: cover;
+        }
+
+        .btn_words:hover {
+            background: url(img/page/bb2.png);
+            background-size: cover;
+        }
+
+        .btn_new_words:hover {
+            background: url(img/page/bc2.png);
+            background-size: cover;
+        }
+
+        .btn_symbol:hover {
+            background: url(img/page/bd2.png);
+            background-size: cover;
+        }
+
+        .ab-bb-next {
+            position: absolute;
+            top: 85%;
+            left: 73%;
+        }
+
+        .ab-bb-pre {
+            position: absolute;
+
+            top: 85%;
+            left: 90%;
+        }
+
+        .dotbox {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            flex-direction: row-reverse;
+            top: 85.5%;
+            left: 76%;
+            width: 30px;
+            height: 10px;
+        }
+
+        .choose_dot {
+            height: 100%;
+
+        }
+
+        .unchoose_dot {
+            height: 100%;
+
+
+
+        }
+
+        .choose_dot img {
+            height: 100%;
+
+        }
+
+        .unchoose_dot img {
+            height: 100%;
+
+        }
+
+        .out-layout img {
+            height: 100%;
+            width: 100%;
+
+        }
+
+        .out-layout {
+            position: absolute;
+            right: 0;
+            z-index: 99;
+        }
+
+        .layout-img {
+            position: absolute;
+            left: 37%;
+            top: 16%;
+            z-index: 200;
+        }
+
+        .in-flex-box {
+            background: url('img/page/aBox.png');
+            background-size: cover;
+
+        }
+
+        .in-layout {
+            position: absolute;
+            right: -80%;
+            z-index: 200;
+            transition: 0.7s;
+        }
+
+        .font-box {
+            position: absolute;
+            right: 3%;
+            z-index: 200;
+            top: 15%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .box-pic1 {
+            background: url(img/page/a1c.png);
+
+            background-size: cover;
+
+        }
+
+        .box-pic2 {
+            background: url(img/page/a2b.png);
+            background-size: cover;
+
+        }
+
+        .box-pic3 {
+            background: url(img/page/a3b.png);
+            background-size: cover;
+
+        }
+
+        .box-pic4 {
+            background: url(img/page/a4b.png);
+            background-size: cover;
+
+
+        }
+
+        .box-pic5 {
+            background: url(img/page/a5b.png);
+            background-size: cover;
+
+        }
+
+        .box-pic6 {
+            background: url(img/page/a6b.png);
+            background-size: cover;
+
+        }
+
+        .box-pic7 {
+            background: url(img/page/a7b.png);
+            background-size: cover;
+
+        }
+
+        .box-pic8 {
+            background: url(img/page/a8b.png);
+            background-size: cover;
+
+        }
+
+        .box-pic9 {
+            background: url(img/page/a9b.png);
+            background-size: cover;
+
+        }
+
+        .box-pic10 {
+            background: url(img/page/a10b.png);
+            background-size: cover;
+
+        }
+
+        .choose_area {
+            display: flex;
+            position: absolute;
+            top: 80%;
+            left: 8%;
+            justify-content: space-between;
+
+        }
+
+        .choose_sentence {
+            background: url(img/page/ca2.png);
+            background-size: cover;
+        }
+
+        .choose_words {
+            background: url(img/page/cb1.png);
+            background-size: cover;
+        }
+
+        .choose_new_words {
+            background: url(img/page/cc1.png);
+            background-size: cover;
+        }
+
+        .choose_symbol {
+            background: url(img/page/cd1.png);
+            background-size: cover;
+        }
+
+        .tools {
+            display: flex;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .tool-img:hover {
+            transform: scale(1.05);
+        }
+
+        .outbg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .background1 {
+            background: url(img/page/p1.png);
+            background-size: cover;
+            position: absolute;
+        }
+
+        .background2 {
+            background: url(img/page/p2.png);
+            background-size: cover;
+            position: absolute;
+            left: -100%;
+
+        }
+
+        .background3 {
+            background: url(img/page/p3.png);
+            background-size: cover;
+            position: absolute;
+            left: -100%;
+
+        }
+
+        .background4 {
+            background: url(img/page/p4.png);
+            background-size: cover;
+            position: absolute;
+            left: -100%;
+
+        }
+
+
+
+        .pic_number {
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            -khtml-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            /* 禁止长按图片保存 */
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- <div class="outside_frame opcZero"> -->
+    <div class="outside_frame opcZero">
+        <div class="outbg background1"></div>
+        <div class="outbg background2"></div>
+        <div class="outbg background3"></div>
+        <div class="outbg background4"></div>
+
+
+        <div class="btn_choose">
+            <div class="btn btn_sentence"></div>
+            <div class="btn btn_words "></div>
+            <div class="btn btn_new_words"></div>
+            <div class="btn btn_symbol"></div>
+
+        </div>
+
+        <div class="dotbox">
+
+        </div>
+
+        <div class="next ab">
+            <img src="img/page/alife.png" alt="">
+
+
+        </div>
+        <div class="pre ab">
+            <img src="img/page/art.png " alt="">
+        </div>
+        <div class=" ab-bb-next">
+            <img src="img/page/alife2.png" alt="">
+
+
+        </div>
+        <div class=" ab-bb-pre">
+            <img src="img/page/art2.png " alt="">
+        </div>
+        <div class="append_box_word sentence_grid">
+
+
+        </div>
+        <div class="canvas_wrapper">
+            <canvas id="canvas"></canvas>
+        </div>
+        <div class="class_flex_box">
+            <div class="out-layout">
+                <img src="img/page/aBoxs.png" alt="">
+            </div>
+            <div class="in-layout" id="koko">
+                <div class="in-flex-box">
+                </div>
+                <div class="font-box">
+                    <div class="box-pic class1 box-pic1 light"></div>
+                    <div class="box-pic class2 box-pic2 light"></div>
+                    <div class="box-pic class3 box-pic3 light"></div>
+                    <div class="box-pic class4 box-pic4 light"></div>
+                    <div class="box-pic class5 box-pic5 light"></div>
+                    <div class="box-pic class6 box-pic6 "></div>
+                    <div class="box-pic class7 box-pic7 light"></div>
+                    <div class="box-pic class8 box-pic8 light"></div>
+                    <div class="box-pic class9 box-pic9 light"></div>
+                    <div class="box-pic class10 box-pic10 light"></div>
+                </div>
+                <div class="choose_area">
+                    <div class="choose_btn choose_sentence"></div>
+                    <div class="choose_btn choose_words "></div>
+                    <div class="choose_btn choose_new_words"></div>
+                    <div class="choose_btn choose_symbol"></div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="classBox ">
+            <div class="btn-dark btn class1 cover_class">第1課</div>
+            <div class="btn-dark btn class2 cover_class">第2課</div>
+            <div class="btn-dark btn class3 cover_class">第3課</div>
+            <div class="btn-dark btn class4 cover_class">第4課</div>
+            <div class="btn-dark btn class5 cover_class">第5課</div>
+            <div class="btn-dark btn class6 cover_class">第6課</div>
+            <div class="btn-dark btn class7 cover_class">第7課</div>
+            <div class="btn-dark btn class8 cover_class">第8課</div>
+            <div class="btn-dark btn class9 cover_class">第9課</div>
+            <div class="btn-dark btn class10 cover_class">第10課</div>
+
+        </div> -->
+
+        <div class="choose_class_area display_none">
+            <div class="btn class_area1">各課句卡</div>
+
+            <div class="btn class_area2">各課詞卡</div>
+
+            <div class="btn class_area3">各課字卡</div>
+
+            <div class="btn class_area4">注音符號</div>
+
+        </div>
+
+        <div class="tools">
+            <div class="del_btn"><img class="tool-img" src="img/page/at.png" alt=""></div>
+
+            <div class="re_btn"><img class="tool-img" src="img/page/ah.png" alt=""></div>
+
+            <div class="close_btn"><img class="tool-img" src="img/page/ax.png" alt=""></div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="outside_frame_main ">
+        <div class="tools">
+
+
+            <div class="close_btn"><img class="tool-img" src="img/page/ax.png" alt=""></div>
+
+        </div>
+        <div class="classBox_main">
+            <div class="classindex class1 "><img src="img/index/a1.png" alt=""></div>
+            <div class="classindex class2 "><img src="img/index/a2.png" alt=""></div>
+            <div class="classindex class3 "><img src="img/index/a3.png" alt=""></div>
+            <div class="classindex class4 "><img src="img/index/a4.png" alt=""></div>
+            <div class="classindex class5"><img src="img/index/a5.png" alt=""></div>
+            <div class="classindex class6 "><img src="img/index/a6.png" alt=""></div>
+            <div class="classindex class7 "><img src="img/index/a7.png" alt=""></div>
+            <div class="classindex class8"><img src="img/index/a8.png" alt=""></div>
+            <div class="classindex class9 "><img src="img/index/a9.png" alt=""></div>
+            <div class="classindex class10 "><img src="img/index/a10.png" alt=""></div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // jQuery(document).ready(function ($) {
+         
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        if(isiOS || isAndroid){
+                      //     // function Close() {
+        //     //     window.open('', '_self', '');
+        //     //     // setInterval(function () { window.close() }
+        //     //     // ,100)
+        //     // }
+        $('.close_btn').click(function (event) {
+            window.location.href = 'about:blank ';
+            window.opener = null;
+            window.open('', '_self');
+            window.close();
+        })
+
+
+        // })
+
+
+
+
+        // $('.pic_number').bind('contextmenu', function (e) {
+        //     e.preventDefault();
+        // })
+
+        var page_area_1 = ""
+        var page_area_2 = ""
+        var page_area_3 = ""
+        var page_area_4 = ""
+        var array_all = [
+
+
+        ]
+        var row_line = 3
+
+        var control_btn = 0
+
+        var choose_class = 1
+
+
+        var append_box_word = document.querySelector(".append_box_word")
+        var sRatio = 0
+        var close_topright = ""
+        var w = 1920, h = 900;
+        var iw = $(window).innerWidth(), ih = $(window).innerHeight();
+        var pRatio = window.devicePixelRatio || 0, xRatio = iw / w, yRatio = ih / h, sRatio = 1;
+        sRatio = Math.min(xRatio, yRatio);
+        $('.append_box_word img').css({ width: Math.round(124 * sRatio), height: Math.round(165 * sRatio) })
+        spcial_move = (iw - Math.round(w * sRatio)) / 2
+        var close_topright = 50 * sRatio
+
+        // 
+        const canvas = new fabric.Canvas('canvas', {
+            width: 1340,
+            height: 837
+
+
+        })
+        var body = document.querySelector('body')
+
+
+        canvas.selection = false;
+        // canvas.selectionBorderColor  = "red"
+        // }
+        var inline_style = `width:${Math.round(124 * sRatio) + "px"};height:auto;`
+        var b4_inline_style = `width:${Math.round(90 * sRatio) + "px"};height:auto;`
+
+        var popo = $('.append_box_word').offset().left
+
+
+        $(window).resize(function () {
+
+            // $('.append_box_word img').css({ width: Math.round(124 * sRatio), height: Math.round(165 * sRatio) })
+            setword()
+
+        })
+
+
+
+        var page = 0
+        var control_display = 0
+        var array_pic_1 = [
+
+        ]
+        var arrA = []
+        var arrB = []
+        var arrC = []
+        var arrD = []
+
+
+        var dot_control = true
+
+
+
+
+
+
+        var setword = function () {
+
+
+            var setData = function (a, b, c, d) {
+
+                if (control_btn == 0 || control_btn == 1) {
+                    array_pic_1 = a
+                } else if (control_btn == 2) {
+                    array_pic_1 = b
+                } else if (control_btn == 3) {
+                    array_pic_1 = c
+                } else if (control_btn == 4) {
+                    array_pic_1 = d
+                }
+
+            }
+
+
+            if (choose_class == 1) {
+                setData(lesson_One_Sentence, lesson_One_Words, lesson_One_New_Words, lesson_One_Sympol)
+
+            } else if (choose_class == 2) {
+                setData(lesson_Two_Sentence, lesson_Two_Words, lesson_Two_New_Words, lesson_Two_Sympol)
+
+            } else if (choose_class == 3) {
+                setData(lesson_Three_Sentence, lesson_Three_Words, lesson_Three_New_Words, lesson_Three_Sympol)
+
+            } else if (choose_class == 4) {
+                setData(lesson_Four_Sentence, lesson_Four_Words, lesson_Four_New_Words, lesson_Four_Sympol)
+
+            } else if (choose_class == 5) {
+                setData(lesson_Five_Sentence, lesson_Five_Words, lesson_Five_New_Words, lesson_Five_Sympol)
+
+            } else if (choose_class == 6) {
+                setData(lesson_Six_Sentence, lesson_Six_Words, lesson_Six_New_Words, lesson_Six_Sympol)
+
+            } else if (choose_class == 7) {
+                setData(lesson_Seven_Sentence, lesson_Seven_Words, lesson_Seven_New_Words, lesson_Seven_Sympol)
+
+            } else if (choose_class == 8) {
+                setData(lesson_Eight_Sentence, lesson_Eight_Words, lesson_Eight_New_Words, lesson_Eight_Sympol)
+
+            } else if (choose_class == 9) {
+                setData(lesson_Nine_Sentence, lesson_Nine_Words, lesson_Nine_New_Words, lesson_Nine_Sympol)
+
+            } else if (choose_class == 10) {
+                setData(lesson_Ten_Sentence, lesson_Ten_Words, lesson_Ten_New_Words, lesson_Ten_Sympol)
+
+            } else if (choose_class == 11) {
+                setData(lesson_Eleven_Sentence, lesson_Eleven_Words, lesson_Eleven_New_Words, lesson_Eleven_Sympol)
+
+            } else if (choose_class == 12) {
+                setData(lesson_twelve_Sentence, lesson_twelve_Words, lesson_twelve_New_Words, lesson_twelve_Sympol)
+            }
+
+
+            var array_pic_1_page = Math.ceil(array_pic_1.length / row_line)
+
+
+            let array_all_cb = []
+            array_all_cb = 0
+            array_all_cb = array_all.slice()
+            for (i = 0; array_pic_1_page > i; i++) {
+                page = i + 1
+                let num = (row_line)
+                let ii = 0
+                array_all_cb[i] = array_pic_1.slice(num * page - row_line, num * (i + 1))
+
+
+            }
+            for (k = 0; k < array_all_cb[control_display].length; k++) {
+                if (control_btn == 4) {
+
+                    page_area_1 += ` <img id="defaultImg" style=${b4_inline_style} class="pic_number grid${k + 1}" src='img/${array_all_cb[control_display][k]}'  draggable>`
+
+                } else {
+                    page_area_1 += ` <img id="defaultImg" style=${inline_style} class="pic_number grid${k + 1}" src='img/${array_all_cb[control_display][k]}'  draggable>`
+                }
+            }
+
+            $("img").remove(".pic_number")
+            $(".append_box_word").append(page_area_1)
+
+            page = 0
+
+            if (dot_control == true) {
+                $('.dotbox').empty()
+
+                for (i = 0; i < control_display; i++) {
+                    $(".dotbox").append(` <div class="unchoose_dot dot"><img src="img/page/ap2.png" alt=""></div>`)
+
+                }
+                $(".dotbox").append(` <div class="choose_dot dot "><img src="img/page/ap1.png" alt=""></div>`)
+                for (i = 0; i < (array_pic_1_page - 1 - control_display); i++) {
+                    $(".dotbox").append(` <div class="unchoose_dot dot"><img src="img/page/ap2.png" alt=""></div>`)
+
+                }
+
+            }
+
+            page_area_1 = []
+            page_area_2 = []
+            page_area_3 = []
+            page_area_4 = []
+
+            let indexlength = $(".dotbox .dot").length
+            var display = function () {
+                if (control_display) {
+                    $(".pre").removeClass("display_none")
+                    $(".next").removeClass("display_none")
+
+
+                }
+                if (control_display < indexlength && control_display == 0) {
+                    $(".next").removeClass("display_none")
+                    $(".pre").addClass("display_none")
+
+                }
+
+
+
+                if (control_display + 1 >= indexlength) {
+                    $(".next").addClass("display_none")
+                    $(".pre").removeClass("display_none")
+
+
+                }
+                if (control_display + 1 >= indexlength && control_display == 0) {
+                    $(".next").addClass("display_none")
+                    $(".pre").addClass("display_none")
+
+
+                }
+
+            }
+            display()
+            dot_control = false
+
+
+        }
+
+        $('.dotbox').on("click", '.dot', function () {
+            let index = $(".dotbox .dot").index(this);
+            let indexlength = $(".dotbox .dot").length
+            console.log(indexlength)
+            control_display = index
+            dot_control = true
+            //     $(this).children("img").attr.attr(
+            //        " src" , "img/page/ap1.png"
+            //     )
+            //    $(".dot").not($(this)).children("img").attr(
+            //        " src" , "img/page/ap2.png"
+            //     )
+            setword()
+            $('.dotbox').empty()
+            for (i = 0; i < indexlength - (indexlength - index); i++) {
+                $(".dotbox").append(` <div class="unchoose_dot dot"><img src="img/page/ap2.png" alt=""></div>`)
+
+            }
+            $(".dotbox").append(` <div class="choose_dot dot"><img src="img/page/ap1.png" alt=""></div>`)
+            for (i = 0; i < indexlength - (index + 1); i++) {
+                $(".dotbox").append(` <div class="unchoose_dot dot"><img src="img/page/ap2.png" alt=""></div>`)
+
+            }
+            if (control_btn == 4) {
+
+
+                if ($('.pic_number').length >= 1) {
+                    let pic_length = $('.pic_number').length
+                    let pic_app = 8 - pic_length
+                    for (i = 0; i < pic_app; i++) {
+                        if (control_btn == 4) {
+                            $('.append_box_word').append(
+                                `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                            )
+                        } else
+                            $('.append_box_word').append(
+
+                                `<img id="defaultImg" style=${inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                            )
+                    }
+                }
+
+
+
+                $('.append_box_word').append(`
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+`)
+            }
+
+        })
+
+
+        $(".next").click(function () {
+            control_display++
+            dot_control = true
+
+            setword()
+
+            if (control_btn == 4) {
+
+                if ($('.pic_number').length >= 1) {
+                    let pic_length = $('.pic_number').length
+                    let pic_app = 8 - pic_length
+                    for (i = 0; i < pic_app; i++) {
+                        $('.append_box_word').append(
+
+                            `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                        )
+                    }
+                }
+
+
+
+                $('.append_box_word').append(`
+                <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+            `)
+            }
+        })
+
+        $('.pre').on("click", function () {
+            control_display--
+            dot_control = true
+
+            setword()
+            if (control_btn == 4) {
+
+
+                if ($('.pic_number').length >= 1) {
+                    let pic_length = $('.pic_number').length
+                    let pic_app = 8 - pic_length
+                    for (i = 0; i < pic_app; i++) {
+                        $('.append_box_word').append(
+
+                            `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                        )
+                    }
+                }
+
+
+
+                $('.append_box_word').append(`
+                <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+            `)
+            }
+        })
+
+        // $('.in-layout').click(function () {
+
+        // })
+
+        $('.out-layout').click(function () {
+            $(".in-layout").css({
+                right: "-2%"
+            })
+        })
+        $('body').bind('click', function (event) {
+            var evt = event.srcElement ? event.srcElement : event.target;
+            var arrjiji = []
+
+            var opop = event.target.classList.length
+
+            for (i = 0; i < opop; i++) {
+                arrjiji.push(event.target.classList[i])
+                // if (opop[i] == "box-pic" || opop[i] == "in-flex-box" ||opop[i]=="font-box"||opop[i]=="in-layout" ) return;
+                // else {
+                //     $('.in-layout').hide();
+                // }
+            }
+            for (i = 0; i < arrjiji.length; i++) {
+                if (arrjiji[i] == "box-pic" || arrjiji[i] == "font-box" || arrjiji[i] == "choose_btn") return;
+                else {
+                    $(".in-layout").css({
+                        right: "-80%"
+                    })
+                }
+            }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+            // }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+        });
+        $('body').bind('touchstart', function (event) {
+            var evt = event.srcElement ? event.srcElement : event.target;
+            var arrjiji = []
+
+            var opop = event.target.classList.length
+
+            for (i = 0; i < opop; i++) {
+                arrjiji.push(event.target.classList[i])
+                // if (opop[i] == "box-pic" || opop[i] == "in-flex-box" ||opop[i]=="font-box"||opop[i]=="in-layout" ) return;
+                // else {
+                //     $('.in-layout').hide();
+                // }
+            }
+            for (i = 0; i < arrjiji.length; i++) {
+                if (arrjiji[i] == "box-pic" || arrjiji[i] == "font-box" || arrjiji[i] == "choose_btn") return;
+                else {
+                    $(".in-layout").css({
+                        right: "-80%"
+                    })
+                }
+            }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+            // }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+        });
+        var btn_sentence = false
+        var btn_words = false
+        var btn_new_words = false
+        var btn_symbol = false
+
+
+        setword()
+        $('.btn_sentence ,.choose_sentence').click(function () {
+            control_btn = 1
+            control_display = 0
+            row_line = 3
+            $('.append_box_word').removeClass('new_words_grid')
+            $('.append_box_word').removeClass('words_grid')
+            $('.append_box_word').removeClass('symbol_grid')
+
+            $('.append_box_word').addClass('sentence_grid')
+            $('.background2').css({
+                left: "-100%"
+            })
+            $('.background3').css({
+                left: "-100%"
+            })
+            $('.background4').css({
+                left: "-100%"
+            })
+            $('.background1').css({
+                left: 0
+            })
+
+            $(".choose_sentence").css({
+                background: "url(img/page/ca2.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_words').css({
+                background: "url(img/page/cb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_new_words').css({
+                background: "url(img/page/cc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_symbol').css({
+                background: "url(img/page/cd1.png)",
+                backgroundSize: "cover"
+            })
+            $(".btn_sentence").css({
+                background: "url(img/page/ba2.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_words').css({
+                background: "url(img/page/bb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_new_words').css({
+                background: "url(img/page/bc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_symbol').css({
+                background: "url(img/page/bd1.png)",
+                backgroundSize: "cover"
+            })
+            btn_sentence = true
+            btn_words = false
+            btn_new_words = false
+            btn_symbol = false
+            dot_control = true
+
+
+            setword()
+
+        })
+        $('.btn_words, .choose_words').click(function () {
+            control_btn = 2
+            row_line = 6
+            control_display = 0
+            $('.append_box_word').removeClass('new_words_grid')
+            $('.append_box_word').removeClass('sentence_grid')
+            $('.append_box_word').removeClass('symbol_grid')
+
+            $('.append_box_word').addClass('words_grid')
+            $('.background2').css({
+                left: 0
+
+            })
+            $('.background3').css({
+                left: "-100%"
+            })
+            $('.background4').css({
+                left: "-100%"
+            })
+            $('.background1').css({
+                left: "-100%"
+
+            })
+
+            $(".choose_sentence").css({
+                background: "url(img/page/ca1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_words').css({
+                background: "url(img/page/cb2.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_new_words').css({
+                background: "url(img/page/cc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_symbol').css({
+                background: "url(img/page/cd1.png)",
+                backgroundSize: "cover"
+            })
+            $(".btn_sentence").css({
+                background: "url(img/page/ba1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_words').css({
+                background: "url(img/page/bb2.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_new_words').css({
+                background: "url(img/page/bc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_symbol').css({
+                background: "url(img/page/bd1.png)",
+                backgroundSize: "cover"
+            })
+            btn_sentence = false
+            btn_words = true
+            btn_new_words = false
+            btn_symbol = false
+            dot_control = true
+
+            setword()
+
+
+        })
+
+
+        $('.btn_new_words ,.choose_new_words').click(function () {
+            control_btn = 3
+            control_display = 0
+            row_line = 9
+            $('.append_box_word').addClass('new_words_grid')
+            $('.append_box_word').removeClass('sentence_grid')
+            $('.append_box_word').removeClass('words_grid')
+            $('.append_box_word').removeClass('symbol_grid')
+            $('.background2').css({
+                left: "-100%"
+
+            })
+            $('.background3').css({
+                left: 0
+
+            })
+            $('.background4').css({
+                left: "-100%"
+            })
+            $('.background1').css({
+                left: "-100%"
+
+            })
+            $(".choose_sentence").css({
+                background: "url(img/page/ca1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_words').css({
+                background: "url(img/page/cb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_new_words').css({
+                background: "url(img/page/cc2.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_symbol').css({
+                background: "url(img/page/cd1.png)",
+                backgroundSize: "cover"
+            })
+            $(".btn_sentence").css({
+                background: "url(img/page/ba1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_words').css({
+                background: "url(img/page/bb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_new_words').css({
+                background: "url(img/page/bc2.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_symbol').css({
+                background: "url(img/page/bd1.png)",
+                backgroundSize: "cover"
+            })
+            btn_sentence = false
+            btn_words = false
+            btn_new_words = true
+            btn_symbol = false
+            dot_control = true
+
+            setword()
+        })
+
+        $('.btn_symbol, .choose_symbol').click(function () {
+            control_btn = 4
+            row_line = 8
+            control_display = 0
+            $('.append_box_word').removeClass('new_words_grid')
+            $('.append_box_word').removeClass('sentence_grid')
+            $('.append_box_word').removeClass('words_grid')
+            $('.append_box_word').addClass('symbol_grid')
+            $('.background2').css({
+                left: "-100%"
+
+            })
+            $('.background3').css({
+                left: "-100%"
+
+            })
+            $('.background4').css({
+                left: 0
+
+            })
+            $('.background1').css({
+                left: "-100%"
+
+            })
+            $(".choose_sentence").css({
+                background: "url(img/page/ca1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_words').css({
+                background: "url(img/page/cb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_new_words').css({
+                background: "url(img/page/cc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_symbol').css({
+                background: "url(img/page/cd2.png)",
+                backgroundSize: "cover"
+            })
+            $(".btn_sentence").css({
+                background: "url(img/page/ba1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_words').css({
+                background: "url(img/page/bb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_new_words').css({
+                background: "url(img/page/bc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_symbol').css({
+                background: "url(img/page/bd2.png)",
+                backgroundSize: "cover"
+            })
+            btn_sentence = false
+            btn_words = false
+            btn_new_words = false
+            btn_symbol = true
+            dot_control = true
+
+            setword()
+
+            if ($('.pic_number').length >= 1) {
+                let pic_length = $('.pic_number').length
+                let pic_app = 8 - pic_length
+                for (i = 0; i < pic_app; i++) {
+                    $('.append_box_word').append(
+
+                        `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                    )
+                }
+            }
+            $('.append_box_word').append(`
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+            `)
+
+        })
+
+
+
+        $(".btn_sentence").mouseenter(function () {
+            $(".btn_sentence").css({
+                background: "url(img/page/ba2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_sentence == true) {
+                $(".btn_sentence").css({
+                    background: "url(img/page/ba2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".btn_sentence").css({
+                    background: "url(img/page/ba1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+
+
+        $(".btn_words").mouseenter(function () {
+            $(".btn_words").css({
+                background: "url(img/page/bb2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_words == true) {
+                $(".btn_words").css({
+                    background: "url(img/page/bb2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".btn_words").css({
+                    background: "url(img/page/bb1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+        $(".btn_new_words").mouseenter(function () {
+            $(".btn_new_words").css({
+                background: "url(img/page/bc2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_new_words == true) {
+                $(".btn_new_words").css({
+                    background: "url(img/page/bc2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".btn_new_words").css({
+                    background: "url(img/page/bc1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+        $(".btn_symbol").mouseenter(function () {
+            $(".btn_symbol").css({
+                background: "url(img/page/bd2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_symbol == true) {
+                $(".btn_symbol").css({
+                    background: "url(img/page/bd2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".btn_symbol").css({
+                    background: "url(img/page/bd1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+
+
+        $("choose_sentence").mouseenter(function () {
+            $("choose_sentence").css({
+                background: "url(img/page/ca2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_sentence == true) {
+                $(".choose_sentence").css({
+                    background: "url(img/page/ca2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".choose_sentence").css({
+                    background: "url(img/page/ca1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+
+
+        $(".choose_words").mouseenter(function () {
+            $(".choose_words").css({
+                background: "url(img/page/cb2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_words == true) {
+                $(".choose_words").css({
+                    background: "url(img/page/cb2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".choose_words").css({
+                    background: "url(img/page/cb1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+        $(".choose_new_words").mouseenter(function () {
+            $(".choose_new_words").css({
+                background: "url(img/page/cc2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_new_words == true) {
+                $(".choose_new_words").css({
+                    background: "url(img/page/cc2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".choose_new_words").css({
+                    background: "url(img/page/cc1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+        $(".choose_symbol").mouseenter(function () {
+            $(".choose_symbol").css({
+                background: "url(img/page/cd2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_symbol == true) {
+                $(".choose_symbol").css({
+                    background: "url(img/page/cd2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".choose_symbol").css({
+                    background: "url(img/page/cd1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $(".out-layout").append(`<img src="img/page/a1c.png" class="layout-img" alt="">`)
+
+        function changeColor() {
+            if (choose_class == 1) {
+                $(".box-pic1").css({
+                    background: "url(img/page/a1c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic1").css({
+                    background: "url(img/page/a1b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 2) {
+                $(".box-pic2").css({
+                    background: "url(img/page/a2c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic2").css({
+                    background: "url(img/page/a2b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 3) {
+                $(".box-pic3").css({
+                    background: "url(img/page/a3c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic3").css({
+                    background: "url(img/page/a3b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 4) {
+                $(".box-pic4").css({
+                    background: "url(img/page/a4c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic4").css({
+                    background: "url(img/page/a4b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 5) {
+                $(".box-pic5").css({
+                    background: "url(img/page/a5c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic5").css({
+                    background: "url(img/page/a5b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 6) {
+                $(".box-pic6").css({
+                    background: "url(img/page/a6c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic6").css({
+                    background: "url(img/page/a6b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 7) {
+                $(".box-pic7").css({
+                    background: "url(img/page/a7c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic7").css({
+                    background: "url(img/page/a7b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 8) {
+                $(".box-pic8").css({
+                    background: "url(img/page/a8c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic8").css({
+                    background: "url(img/page/a8b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 9) {
+                $(".box-pic9").css({
+                    background: "url(img/page/a9c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic9").css({
+                    background: "url(img/page/a9b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 10) {
+                $(".box-pic10").css({
+                    background: "url(img/page/a10c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic10").css({
+                    background: "url(img/page/a10b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+        }
+
+
+
+        $(".class1").click(function () {
+            // control_display = 0
+            // choose_class = 1
+            // dot_control = true
+            // setword()
+            // $('.layout-img').remove()
+            // changeColor()
+
+
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+
+
+
+
+
+            // $(".out-layout").append(`<img src="img/page/a1c.png" class="layout-img"  alt="">`)
+            // $('.outside_frame').removeClass('opcZero')
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+        })
+
+        $(".class2").click(function () {
+            // control_display = 0
+            // choose_class = 2
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // console.log(control_btn)
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a2c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+
+        $(".class3").click(function () {
+            // control_display = 0
+            // dot_control = true
+
+            // choose_class = 3
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a3c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+
+        })
+
+        $(".class4").click(function () {
+            // control_display = 0
+            // choose_class = 4
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a4c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+        $(".class5").click(function () {
+            // control_display = 0
+            // dot_control = true
+
+            // choose_class = 5
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a5c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+
+        $(".class6").click(function () {
+            control_display = 0
+            dot_control = true
+
+            choose_class = 6
+            setword()
+            changeColor()
+            $('.layout-img').remove()
+            if (control_btn == 4) {
+
+                if ($('.pic_number').length >= 1) {
+                    let pic_length = $('.pic_number').length
+                    let pic_app = 8 - pic_length
+                    for (i = 0; i < pic_app; i++) {
+                        $('.append_box_word').append(
+
+                            `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                        )
+                    }
+                }
+                $('.append_box_word').append(`
+                <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+            `)
+            }
+            $(".out-layout").append(`<img src="img/page/a6c.png" class="layout-img"  alt="">`)
+
+            $('.outside_frame').removeClass('opcZero')
+
+            $('.classBox .btn').addClass('cover_class')
+            $('.outside_frame_main').addClass('moveOut')
+            convertSizeALL();
+
+        })
+        $(".class7").click(function () {
+            // control_display = 0
+            // choose_class = 7
+            // dot_control = true
+
+            // setword()
+
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+            //     console.log(b4_inline_style)
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a7c.png" class="layout-img"   alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+
+        $(".class8").click(function () {
+            // control_display = 0
+            // choose_class = 8
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a8c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+        $(".class9").click(function () {
+            // control_display = 0
+            // choose_class = 9
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a9c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+
+        $(".class10").click(function () {
+            // control_display = 0
+            // choose_class = 10
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a10c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+
+        })
+
+        $('.class_area1').click(function () {
+            control_btn = 1
+            $('.classBox .btn').removeClass('cover_class')
+        })
+        $('.class_area2').click(function () {
+            control_btn = 2
+            $('.classBox .btn').removeClass('cover_class')
+        })
+        $('.class_area3').click(function () {
+            control_btn = 3
+            $('.classBox .btn').removeClass('cover_class')
+        })
+        $('.class_area4').click(function () {
+            control_btn = 4
+            $('.classBox .btn').removeClass('cover_class')
+        })
+
+        $('#defaultImg').draggable()
+        $('.re_btn').click(function () {
+            window.location.reload("")
+            //     $('.outside_frame_main').removeClass('moveOut')
+            //    canvas.clear()
+            //     $('.outside_frame').addClass("opcZero")
+        })
+        $('.del_btn').click(function () {
+            var r = confirm("刪除後無法回復，確認刪除?");
+            if (r == true) {
+                canvas.clear()
+
+            }
+
+        })
+        const imgset = document.querySelector('.append_box_word')
+        const defaultImg = document.querySelector('#defaultImg')
+        let movingImage
+        let imgDragOffset = {
+            offsetX: 0,
+            offsetY: 0
+        }
+        // function uploadFile(e) {
+        //     file.click()
+        // }
+        var oldimgX = ''
+        var oldimgY = ''
+
+        function saveImg(e) {
+            console.log(e)
+
+            if (e.target.tagName.toLowerCase() === 'img') {
+
+                imgDragOffset.offsetX = e.clientX - e.target.offsetLeft
+                imgDragOffset.offsetY = e.clientY - e.target.offsetTop
+                movingImage = e.target
+                oldimgX = movingImage.width / movingImage.naturalWidth
+                oldimgY = movingImage.height / movingImage.naturalHeight
+            }
+
+            // console.log(imgDragOffset)
+        }
+        var jijo = ''
+        function saveFoneImg(e) {
+            // console.log(e.targetTouches[0].clientX)
+            // console.log(e)
+
+            if (e.target.tagName.toLowerCase() === 'img') {
+
+                imgDragOffset.offsetX = e.targetTouches[0].clientX - e.target.width / 2
+                imgDragOffset.offsetY = e.targetTouches[0].clientY - e.target.height / 2
+                movingImage = e.target
+                oldimgX = movingImage.width / movingImage.naturalWidth
+                oldimgY = movingImage.height / movingImage.naturalHeight
+            }
+
+            let copyObj = movingImage.cloneNode(true);
+            document.body.appendChild(copyObj);
+            // console.log(e.targetTouches[0].clientY - e.target.offsetTop)
+            copyObj.style.position = "absolute"
+            copyObj.style.top = e.target.y + "px"
+            copyObj.style.left = e.target.x + "px"
+            copyObj.style.zIndex = "9999"
+            copyObj.style.opacity = "0.6"
+
+
+            copyObj.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
+            copyObj.style.left = e.targetTouches[0].clientX - e.target.width / 2- spcial_move + "px"
+            jijo = copyObj
+        }
+        var odX
+        var odY
+        function drag(e) {
+
+
+            e.preventDefault();
+            console.log(e)
+            jijo.style.transition = "none"
+
+            jijo.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
+            jijo.style.left = e.targetTouches[0].clientX - e.target.width / 2 - spcial_move+ "px"
+
+            odX = e.targetTouches[0].clientX - e.target.width / 2
+            odY = e.targetTouches[0].clientY - e.target.height / 2
+        }
+        var push = false
+
+        function pushimg(e) {
+            let yoyo = $('.canvas_wrapper').offset().left
+            let yoyot = $('.canvas_wrapper').offset().top
+
+            let offsetY = odY
+            let offsetX = odX
+            document.body.removeChild(jijo);
+            console.log(spcial_move)
+            let h
+            if (e.changedTouches[0].clientY - yoyot - e.target.height / 2 < 0) {
+                h = 35
+            } else if ((e.changedTouches[0].clientY - yoyot - e.target.height / 2 + e.target.height) > ($('.canvas_wrapper').height())) {
+                h = $('.canvas_wrapper').height() - e.target.height - 20
+            } else {
+                h = e.changedTouches[0].clientY - yoyot - e.target.height / 2
+            }
+            let w
+            if (e.changedTouches[0].clientX - yoyo - e.target.width / 2  < 0) {
+                w = 0
+            }
+            else if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 + e.target.width > ($('.canvas_wrapper').width())) {
+                w = $('.canvas_wrapper').width()*999 + e.target.width/2 
+            }
+            else{
+                w = e.changedTouches[0].clientX - yoyo - e.target.width 
+            }
+            const image_qq = new fabric.Image(movingImage, {
+                width: movingImage.naturalWidth,
+                height: movingImage.naturalHeight,
+                scaleX: movingImage.width / movingImage.naturalWidth,
+                scaleY: movingImage.height / movingImage.naturalHeight,
+                top: h,
+                left: w ,
+                // top: (offsetY - imgDragOffset.offsetY + jiji * 8.5) < 0 ? 35 : (offsetY - imgDragOffset.offsetY + jiji * 8.5),
+                // left: (offsetX - imgDragOffset.offsetX + popo),
+                lockScalingFlip: true
+            })
+
+
+            canvas.add(image_qq)
+            image_qq.set({
+                borderColor: 'rgba(0,0,0,0)'
+            })
+        }
+        // function handleFile() {
+        //     const fileReader = new FileReader();
+        //     fileReader.readAsDataURL(this.files[0])
+        //     fileReader.onload = (e) => {
+        //         // 圖片 base64
+        //         const dataURL = e.target.result
+        //         const img = document.createElement('img')
+        //         img.draggable = true
+        //         img.src = dataURL
+        //         imgset.appendChild(img)
+        //     }
+        // }
+
+        var popo = $('.append_box_word').offset().left
+
+
+        function dropImg(e) {
+            const { offsetX, offsetY } = e.e
+            console.log(offsetY - imgDragOffset.offsetY + jiji * 2)
+            const image_qq = new fabric.Image(movingImage, {
+                width: movingImage.naturalWidth,
+                height: movingImage.naturalHeight,
+                scaleX: movingImage.width / movingImage.naturalWidth,
+                scaleY: movingImage.height / movingImage.naturalHeight,
+                top: (offsetY - imgDragOffset.offsetY + jiji * 8.5) < 0 ? 35 : (offsetY - imgDragOffset.offsetY + jiji * 8.5),
+                left: (offsetX - imgDragOffset.offsetX + popo),
+                lockScalingFlip: true
+            })
+
+
+            canvas.add(image_qq)
+            image_qq.set({
+                borderColor: 'rgba(0,0,0,0)'
+            })
+            movingImage = ""
+        }
+
+
+
+        // canvas.addEventListener('mouseup', dropImg)
+        // alert(isAndroid)
+        // if (isAndroid || isiOS) {
+        document.oncontextmenu = function (e) {
+            e.preventDefault();
+        };
+        // defaultImg.addEventListener('touchstart', saveImg)
+        // imgset.addEventListener('touchstart', saveImg)
+        // canvas.on('mouse:up', dropImg)
+        // fabric.Image.fromURL('img/ta1.png', function (img) {
+        //     img.scale(0.5).set({
+        //         left: 150,
+        //         top: 150,
+        //         angle: -15
+        //     });
+        //     canvas.add(img).setActiveObject(img);
+        // });
+
+        // }
+
+
+        // else {
+        // canvas.on("touch:drag", dropImg)
+        canvas.on('drop', dropImg)
+        // canvas.on('touchend', dropImg)
+        // defaultImg.addEventListener('click', saveImg)
+        // imgset.addEventListener('click', saveImg)
+
+        defaultImg.addEventListener('mousedown', saveImg)
+        imgset.addEventListener('mousedown', saveImg)
+        // defaultImg.addEventListener('tap', saveImg)
+        // imgset.addEventListener('tap', saveImg)
+
+        imgset.addEventListener('touchstart', saveFoneImg)
+        // }
+        imgset.addEventListener("touchmove", drag);
+        imgset.addEventListener("touchend", pushimg);
+
+
+        fabric.Object.prototype.customiseCornerIcons({
+            settings: {
+                borderColor: 'black',
+                cornerSize: 30,
+                cornerShape: 'circle',
+                cornerBackgroundColor: 'rgba(0,0,0,0)',
+                cornerPadding: 0
+            },
+
+            tr: {
+
+                icon: 'img/page/ax.png',
+            },
+            br: {
+                settings: {
+                    borderColor: '#0094dd',
+
+                    cornerShape: 'circle',
+                },
+                icon: 'img/page/al.png'
+            },
+        }, function () {
+            canvas.renderAll()
+        })
+
+
+        fabric.Canvas.prototype.customiseControls({
+            tl: {
+                action: function () {
+
+                }
+            },
+            tr: {
+                action: function () {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        canvas.remove(obj)
+                    });
+                    canvas.discardActiveObject().renderAll()
+
+                },
+                cursor: 'pointer'
+            },
+            bl: {
+                action: function () {
+                }
+
+            },
+            br: {
+                action: "scale",
+                // function () {
+                //     canvas.on('mouse:down', e => {
+                //         console.log(e)
+                //     })
+                // },
+                cursor: 'pointer'
+            },
+            mb: {
+                action: function () {
+
+                }
+            },
+            mt: {
+                action: function () {
+
+                }
+            },
+            ml: {
+                action: function () {
+
+                }
+            },
+            mr: {
+                action: function () {
+
+                }
+            },
+            mtr: {
+                action: function () {
+
+                }
+            },
+        }, function () {
+
+            canvas.renderAll()
+        })
+        canvas.on('object:scaling', (e) => {
+            let targetH = e.target.scaleY
+            let canvasH = ($(".canvas_wrapper").height() - Math.ceil(e.target.top)) / e.target.height
+            // let targetH = e.target.scaleY
+            // let canvasH = ($(".canvas_wrapper").height() )/e.target.height
+            // console.log(targetH)
+            // console.log(canvasH)
+            if ($(".canvas_wrapper").height() >= 450) {
+                if (targetH > canvasH * 0.95) {
+                    e.target.scaleY = canvasH * 0.95
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.95) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.95
+                        obj.scaleX = canvasH * 0.95
+
+                    });
+                }
+            } else if ($(".canvas_wrapper").height() >= 250 && $(".canvas_wrapper").height() <= 450) {
+                if (targetH > canvasH * 0.90) {
+                    e.target.scaleY = canvasH * 0.90
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.95) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.90
+                        obj.scaleX = canvasH * 0.90
+
+                    });
+                }
+            }
+            else {
+                if (targetH > canvasH * 0.80) {
+                    e.target.scaleY = canvasH * 0.80
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.85) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.80
+                        obj.scaleX = canvasH * 0.80
+
+                    });
+                }
+            }
+
+
+            console.log($(".canvas_wrapper").height())
+            Math.ceil(e.target.top)
+            // $(".canvas_wrapper").mouseleave(function(){
+            //     let targetH = e.target.scaleY
+            //     console.log(targetH)
+            // })
+            // if(e.target.scaleY>1.7){
+            //     canvas.getActiveObjects().forEach((obj) => {
+            //         obj.scaleY = 1.7
+            // });
+            // }
+        })
+        canvas.on('object:selected', (e) => {
+            canvas.getActiveObjects().forEach((obj) => {
+                console.log(obj)
+                canvas.bringToFront(obj)
+            });
+            // canvas.discardActiveObject().renderAll()
+            canvas.renderAll()
+
+        })
+
+        canvas.on('object:moving', (e) => {
+
+            if (e.target.top < 28) {
+                canvas.getActiveObjects().forEach((obj) => {
+                    console.log(obj)
+                    obj.top = 28
+
+                });
+                // canvas.discardActiveObject().renderAll()
+                canvas.renderAll()
+            }
+            if (e.target.left < 0) {
+                canvas.getActiveObjects().forEach((obj) => {
+                    console.log(obj)
+                    obj.left = 0
+
+                });
+                // canvas.discardActiveObject().renderAll()
+                canvas.renderAll()
+            }
+
+            if (e.target.top + (e.target.height * e.target.scaleX) + 20 > $(".canvas_wrapper").height()) {
+                canvas.getActiveObjects().forEach((obj) => {
+                    // console.log(obj)
+                    obj.top = $(".canvas_wrapper").height() - (e.target.height * e.target.scaleX) - 25
+
+                });
+                // canvas.discardActiveObject().renderAll()
+                canvas.renderAll()
+            }
+            if (e.target.left + (e.target.width * e.target.scaleY) + 20 > $(".canvas_wrapper").width()) {
+                canvas.getActiveObjects().forEach((obj) => {
+                    // console.log(obj)
+                    obj.left = $(".canvas_wrapper").width() - (e.target.width * e.target.scaleY) - 25
+
+                });
+                // canvas.discardActiveObject().renderAll()
+                canvas.renderAll()
+            }
+        })
+
+
+
+        canvas.on('mouse:up', e => {
+            if (e.target) {
+                fabric.Object.prototype.customiseCornerIcons({
+                    settings: {
+                        borderColor: 'black',
+                        cornerSize: 30,
+                        cornerShape: 'circle',
+                        cornerBackgroundColor: 'rgba(0,0,0,0)',
+                        cornerPadding: -20
+                    },
+
+                    tr: {
+
+                        icon: 'img/page/ax.png',
+                    },
+                    br: {
+                        settings: {
+                            borderColor: '#0094dd',
+
+                            cornerShape: 'circle',
+                        },
+                        icon: 'img/page/al.png'
+                    },
+                }, function () {
+                    canvas.renderAll()
+                })
+            }
+
+
+        })
+        fabric.Object.prototype.setControlsVisibility({
+            bl: false, // 左下
+            br: true, // 右下
+            mb: false, // 下中
+            ml: false, // 中左
+            mr: false, // 中右
+            mt: false, // 上中
+            tl: false, // 上左
+            tr: true, // 上右
+            mtr: false // 旋轉控制鍵
+        })
+
+        fabric.Canvas.prototype.cursorMap[1] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[2] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[3] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[4] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[5] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[6] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[7] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[8] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[9] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[1] = 'pointer'
+
+            }
+            else{
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+        //     // function Close() {
+        //     //     window.open('', '_self', '');
+        //     //     // setInterval(function () { window.close() }
+        //     //     // ,100)
+        //     // }
+        $('.close_btn').click(function (event) {
+            window.location.href = 'about:blank ';
+            window.opener = null;
+            window.open('', '_self');
+            window.close();
+        })
+
+
+        // })
+
+
+
+
+        // $('.pic_number').bind('contextmenu', function (e) {
+        //     e.preventDefault();
+        // })
+
+        var page_area_1 = ""
+        var page_area_2 = ""
+        var page_area_3 = ""
+        var page_area_4 = ""
+        var array_all = [
+
+
+        ]
+        var row_line = 3
+
+        var control_btn = 0
+
+        var choose_class = 1
+
+
+        var append_box_word = document.querySelector(".append_box_word")
+        var sRatio = 1
+        var close_topright = ""
+        var w = 1920, h = 900;
+        var iw = $(window).innerWidth(), ih = $(window).innerHeight();
+        var pRatio = window.devicePixelRatio || 0, xRatio = iw / w, yRatio = ih / h, sRatio = 1;
+        sRatio = Math.min(xRatio, yRatio);
+        $('.append_box_word img').css({ width: Math.round(124 * sRatio), height: Math.round(165 * sRatio) })
+        spcial_move = (iw - Math.round(w * sRatio)) / 2
+        var close_topright = 50 * sRatio
+
+        // 
+        var canvas = new fabric.Canvas('canvas');
+        canvas.setHeight(4000);
+        canvas.setWidth(6000);
+
+        var body = document.querySelector('body')
+
+
+        canvas.selection = false;
+        // canvas.selectionBorderColor  = "red"
+        // }
+        var inline_style = `width:${Math.round(124 * sRatio) + "px"};height:auto;`
+        var b4_inline_style = `width:${Math.round(90 * sRatio) + "px"};height:auto;`
+
+        var popo = $('.append_box_word').offset().left
+
+
+        $(window).resize(function () {
+
+            // $('.append_box_word img').css({ width: Math.round(124 * sRatio), height: Math.round(165 * sRatio) })
+            setword()
+
+        })
+
+
+
+        var page = 0
+        var control_display = 0
+        var array_pic_1 = [
+
+        ]
+        var arrA = []
+        var arrB = []
+        var arrC = []
+        var arrD = []
+
+
+        var dot_control = true
+
+
+
+
+
+
+        var setword = function () {
+
+
+            var setData = function (a, b, c, d) {
+
+                if (control_btn == 0 || control_btn == 1) {
+                    array_pic_1 = a
+                } else if (control_btn == 2) {
+                    array_pic_1 = b
+                } else if (control_btn == 3) {
+                    array_pic_1 = c
+                } else if (control_btn == 4) {
+                    array_pic_1 = d
+                }
+
+            }
+
+
+            if (choose_class == 1) {
+                setData(lesson_One_Sentence, lesson_One_Words, lesson_One_New_Words, lesson_One_Sympol)
+
+            } else if (choose_class == 2) {
+                setData(lesson_Two_Sentence, lesson_Two_Words, lesson_Two_New_Words, lesson_Two_Sympol)
+
+            } else if (choose_class == 3) {
+                setData(lesson_Three_Sentence, lesson_Three_Words, lesson_Three_New_Words, lesson_Three_Sympol)
+
+            } else if (choose_class == 4) {
+                setData(lesson_Four_Sentence, lesson_Four_Words, lesson_Four_New_Words, lesson_Four_Sympol)
+
+            } else if (choose_class == 5) {
+                setData(lesson_Five_Sentence, lesson_Five_Words, lesson_Five_New_Words, lesson_Five_Sympol)
+
+            } else if (choose_class == 6) {
+                setData(lesson_Six_Sentence, lesson_Six_Words, lesson_Six_New_Words, lesson_Six_Sympol)
+
+            } else if (choose_class == 7) {
+                setData(lesson_Seven_Sentence, lesson_Seven_Words, lesson_Seven_New_Words, lesson_Seven_Sympol)
+
+            } else if (choose_class == 8) {
+                setData(lesson_Eight_Sentence, lesson_Eight_Words, lesson_Eight_New_Words, lesson_Eight_Sympol)
+
+            } else if (choose_class == 9) {
+                setData(lesson_Nine_Sentence, lesson_Nine_Words, lesson_Nine_New_Words, lesson_Nine_Sympol)
+
+            } else if (choose_class == 10) {
+                setData(lesson_Ten_Sentence, lesson_Ten_Words, lesson_Ten_New_Words, lesson_Ten_Sympol)
+
+            } else if (choose_class == 11) {
+                setData(lesson_Eleven_Sentence, lesson_Eleven_Words, lesson_Eleven_New_Words, lesson_Eleven_Sympol)
+
+            } else if (choose_class == 12) {
+                setData(lesson_twelve_Sentence, lesson_twelve_Words, lesson_twelve_New_Words, lesson_twelve_Sympol)
+            }
+
+
+            var array_pic_1_page = Math.ceil(array_pic_1.length / row_line)
+
+
+            let array_all_cb = []
+            array_all_cb = 0
+            array_all_cb = array_all.slice()
+            for (i = 0; array_pic_1_page > i; i++) {
+                page = i + 1
+                let num = (row_line)
+                let ii = 0
+                array_all_cb[i] = array_pic_1.slice(num * page - row_line, num * (i + 1))
+
+
+            }
+            for (k = 0; k < array_all_cb[control_display].length; k++) {
+                if (control_btn == 4) {
+
+                    page_area_1 += ` <img id="defaultImg" style=${b4_inline_style} class="pic_number grid${k + 1}" src='img/${array_all_cb[control_display][k]}'  draggable>`
+
+                } else {
+                    page_area_1 += ` <img id="defaultImg" style=${inline_style} class="pic_number grid${k + 1}" src='img/${array_all_cb[control_display][k]}'  draggable>`
+                }
+            }
+
+            $("img").remove(".pic_number")
+            $(".append_box_word").append(page_area_1)
+
+            page = 0
+
+            if (dot_control == true) {
+                $('.dotbox').empty()
+
+                for (i = 0; i < control_display; i++) {
+                    $(".dotbox").append(` <div class="unchoose_dot dot"><img src="img/page/ap2.png" alt=""></div>`)
+
+                }
+                $(".dotbox").append(` <div class="choose_dot dot "><img src="img/page/ap1.png" alt=""></div>`)
+                for (i = 0; i < (array_pic_1_page - 1 - control_display); i++) {
+                    $(".dotbox").append(` <div class="unchoose_dot dot"><img src="img/page/ap2.png" alt=""></div>`)
+
+                }
+
+            }
+
+            page_area_1 = []
+            page_area_2 = []
+            page_area_3 = []
+            page_area_4 = []
+
+            let indexlength = $(".dotbox .dot").length
+            var display = function () {
+                if (control_display) {
+                    $(".pre").removeClass("display_none")
+                    $(".next").removeClass("display_none")
+
+
+                }
+                if (control_display < indexlength && control_display == 0) {
+                    $(".next").removeClass("display_none")
+                    $(".pre").addClass("display_none")
+
+                }
+
+
+
+                if (control_display + 1 >= indexlength) {
+                    $(".next").addClass("display_none")
+                    $(".pre").removeClass("display_none")
+
+
+                }
+                if (control_display + 1 >= indexlength && control_display == 0) {
+                    $(".next").addClass("display_none")
+                    $(".pre").addClass("display_none")
+
+
+                }
+
+            }
+            display()
+            dot_control = false
+
+
+        }
+
+        $('.dotbox').on("click", '.dot', function () {
+            let index = $(".dotbox .dot").index(this);
+            let indexlength = $(".dotbox .dot").length
+            console.log(indexlength)
+            control_display = index
+            dot_control = true
+            //     $(this).children("img").attr.attr(
+            //        " src" , "img/page/ap1.png"
+            //     )
+            //    $(".dot").not($(this)).children("img").attr(
+            //        " src" , "img/page/ap2.png"
+            //     )
+            setword()
+            $('.dotbox').empty()
+            for (i = 0; i < indexlength - (indexlength - index); i++) {
+                $(".dotbox").append(` <div class="unchoose_dot dot"><img src="img/page/ap2.png" alt=""></div>`)
+
+            }
+            $(".dotbox").append(` <div class="choose_dot dot"><img src="img/page/ap1.png" alt=""></div>`)
+            for (i = 0; i < indexlength - (index + 1); i++) {
+                $(".dotbox").append(` <div class="unchoose_dot dot"><img src="img/page/ap2.png" alt=""></div>`)
+
+            }
+            if (control_btn == 4) {
+
+
+                if ($('.pic_number').length >= 1) {
+                    let pic_length = $('.pic_number').length
+                    let pic_app = 8 - pic_length
+                    for (i = 0; i < pic_app; i++) {
+                        if (control_btn == 4) {
+                            $('.append_box_word').append(
+                                `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                            )
+                        } else
+                            $('.append_box_word').append(
+
+                                `<img id="defaultImg" style=${inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                            )
+                    }
+                }
+
+
+
+                $('.append_box_word').append(`
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+`)
+            }
+
+        })
+
+
+        $(".next").click(function () {
+            control_display++
+            dot_control = true
+
+            setword()
+
+            if (control_btn == 4) {
+
+                if ($('.pic_number').length >= 1) {
+                    let pic_length = $('.pic_number').length
+                    let pic_app = 8 - pic_length
+                    for (i = 0; i < pic_app; i++) {
+                        $('.append_box_word').append(
+
+                            `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                        )
+                    }
+                }
+
+
+
+                $('.append_box_word').append(`
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+            `)
+            }
+        })
+
+        $('.pre').on("click", function () {
+            control_display--
+            dot_control = true
+
+            setword()
+            if (control_btn == 4) {
+
+
+                if ($('.pic_number').length >= 1) {
+                    let pic_length = $('.pic_number').length
+                    let pic_app = 8 - pic_length
+                    for (i = 0; i < pic_app; i++) {
+                        $('.append_box_word').append(
+
+                            `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                        )
+                    }
+                }
+
+
+
+                $('.append_box_word').append(`
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+            `)
+            }
+        })
+
+        // $('.in-layout').click(function () {
+
+        // })
+
+        $('.out-layout').click(function () {
+            $(".in-layout").css({
+                right: "-2%"
+            })
+        })
+        $('body').bind('click', function (event) {
+            var evt = event.srcElement ? event.srcElement : event.target;
+            var arrjiji = []
+
+            var opop = event.target.classList.length
+
+            for (i = 0; i < opop; i++) {
+                arrjiji.push(event.target.classList[i])
+                // if (opop[i] == "box-pic" || opop[i] == "in-flex-box" ||opop[i]=="font-box"||opop[i]=="in-layout" ) return;
+                // else {
+                //     $('.in-layout').hide();
+                // }
+            }
+            for (i = 0; i < arrjiji.length; i++) {
+                if (arrjiji[i] == "box-pic" || arrjiji[i] == "font-box" || arrjiji[i] == "choose_btn") return;
+                else {
+                    $(".in-layout").css({
+                        right: "-80%"
+                    })
+                }
+            }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+            // }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+        });
+        $('body').bind('touchstart', function (event) {
+            var evt = event.srcElement ? event.srcElement : event.target;
+            var arrjiji = []
+
+            var opop = event.target.classList.length
+
+            for (i = 0; i < opop; i++) {
+                arrjiji.push(event.target.classList[i])
+                // if (opop[i] == "box-pic" || opop[i] == "in-flex-box" ||opop[i]=="font-box"||opop[i]=="in-layout" ) return;
+                // else {
+                //     $('.in-layout').hide();
+                // }
+            }
+            for (i = 0; i < arrjiji.length; i++) {
+                if (arrjiji[i] == "box-pic" || arrjiji[i] == "font-box" || arrjiji[i] == "choose_btn") return;
+                else {
+                    $(".in-layout").css({
+                        right: "-80%"
+                    })
+                }
+            }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+            // }
+            // if (opop == "koko") return; 
+            // else {
+            //     $('#').hide(); 
+            // }
+        });
+        var btn_sentence = false
+        var btn_words = false
+        var btn_new_words = false
+        var btn_symbol = false
+
+
+        setword()
+        $('.btn_sentence ,.choose_sentence').click(function () {
+            control_btn = 1
+            control_display = 0
+            row_line = 3
+            $('.append_box_word').removeClass('new_words_grid')
+            $('.append_box_word').removeClass('words_grid')
+            $('.append_box_word').removeClass('symbol_grid')
+
+            $('.append_box_word').addClass('sentence_grid')
+            $('.background2').css({
+                left: "-100%"
+            })
+            $('.background3').css({
+                left: "-100%"
+            })
+            $('.background4').css({
+                left: "-100%"
+            })
+            $('.background1').css({
+                left: 0
+            })
+
+            $(".choose_sentence").css({
+                background: "url(img/page/ca2.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_words').css({
+                background: "url(img/page/cb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_new_words').css({
+                background: "url(img/page/cc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_symbol').css({
+                background: "url(img/page/cd1.png)",
+                backgroundSize: "cover"
+            })
+            $(".btn_sentence").css({
+                background: "url(img/page/ba2.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_words').css({
+                background: "url(img/page/bb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_new_words').css({
+                background: "url(img/page/bc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_symbol').css({
+                background: "url(img/page/bd1.png)",
+                backgroundSize: "cover"
+            })
+            btn_sentence = true
+            btn_words = false
+            btn_new_words = false
+            btn_symbol = false
+            dot_control = true
+
+
+            setword()
+
+        })
+        $('.btn_words, .choose_words').click(function () {
+            control_btn = 2
+            row_line = 6
+            control_display = 0
+            $('.append_box_word').removeClass('new_words_grid')
+            $('.append_box_word').removeClass('sentence_grid')
+            $('.append_box_word').removeClass('symbol_grid')
+
+            $('.append_box_word').addClass('words_grid')
+            $('.background2').css({
+                left: 0
+
+            })
+            $('.background3').css({
+                left: "-100%"
+            })
+            $('.background4').css({
+                left: "-100%"
+            })
+            $('.background1').css({
+                left: "-100%"
+
+            })
+
+            $(".choose_sentence").css({
+                background: "url(img/page/ca1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_words').css({
+                background: "url(img/page/cb2.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_new_words').css({
+                background: "url(img/page/cc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_symbol').css({
+                background: "url(img/page/cd1.png)",
+                backgroundSize: "cover"
+            })
+            $(".btn_sentence").css({
+                background: "url(img/page/ba1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_words').css({
+                background: "url(img/page/bb2.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_new_words').css({
+                background: "url(img/page/bc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_symbol').css({
+                background: "url(img/page/bd1.png)",
+                backgroundSize: "cover"
+            })
+            btn_sentence = false
+            btn_words = true
+            btn_new_words = false
+            btn_symbol = false
+            dot_control = true
+
+            setword()
+
+
+        })
+
+
+        $('.btn_new_words ,.choose_new_words').click(function () {
+            control_btn = 3
+            control_display = 0
+            row_line = 9
+            $('.append_box_word').addClass('new_words_grid')
+            $('.append_box_word').removeClass('sentence_grid')
+            $('.append_box_word').removeClass('words_grid')
+            $('.append_box_word').removeClass('symbol_grid')
+            $('.background2').css({
+                left: "-100%"
+
+            })
+            $('.background3').css({
+                left: 0
+
+            })
+            $('.background4').css({
+                left: "-100%"
+            })
+            $('.background1').css({
+                left: "-100%"
+
+            })
+            $(".choose_sentence").css({
+                background: "url(img/page/ca1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_words').css({
+                background: "url(img/page/cb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_new_words').css({
+                background: "url(img/page/cc2.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_symbol').css({
+                background: "url(img/page/cd1.png)",
+                backgroundSize: "cover"
+            })
+            $(".btn_sentence").css({
+                background: "url(img/page/ba1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_words').css({
+                background: "url(img/page/bb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_new_words').css({
+                background: "url(img/page/bc2.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_symbol').css({
+                background: "url(img/page/bd1.png)",
+                backgroundSize: "cover"
+            })
+            btn_sentence = false
+            btn_words = false
+            btn_new_words = true
+            btn_symbol = false
+            dot_control = true
+
+            setword()
+        })
+
+        $('.btn_symbol, .choose_symbol').click(function () {
+            control_btn = 4
+            row_line = 8
+            control_display = 0
+            $('.append_box_word').removeClass('new_words_grid')
+            $('.append_box_word').removeClass('sentence_grid')
+            $('.append_box_word').removeClass('words_grid')
+            $('.append_box_word').addClass('symbol_grid')
+            $('.background2').css({
+                left: "-100%"
+
+            })
+            $('.background3').css({
+                left: "-100%"
+
+            })
+            $('.background4').css({
+                left: 0
+
+            })
+            $('.background1').css({
+                left: "-100%"
+
+            })
+            $(".choose_sentence").css({
+                background: "url(img/page/ca1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_words').css({
+                background: "url(img/page/cb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_new_words').css({
+                background: "url(img/page/cc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.choose_symbol').css({
+                background: "url(img/page/cd2.png)",
+                backgroundSize: "cover"
+            })
+            $(".btn_sentence").css({
+                background: "url(img/page/ba1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_words').css({
+                background: "url(img/page/bb1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_new_words').css({
+                background: "url(img/page/bc1.png)",
+                backgroundSize: "cover"
+            })
+            $('.btn_symbol').css({
+                background: "url(img/page/bd2.png)",
+                backgroundSize: "cover"
+            })
+            btn_sentence = false
+            btn_words = false
+            btn_new_words = false
+            btn_symbol = true
+            dot_control = true
+
+            setword()
+
+            if ($('.pic_number').length >= 1) {
+                let pic_length = $('.pic_number').length
+                let pic_app = 8 - pic_length
+                for (i = 0; i < pic_app; i++) {
+                    $('.append_box_word').append(
+
+                        `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                    )
+                }
+            }
+            $('.append_box_word').append(`
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
+            `)
+
+        })
+
+
+
+        $(".btn_sentence").mouseenter(function () {
+            $(".btn_sentence").css({
+                background: "url(img/page/ba2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_sentence == true) {
+                $(".btn_sentence").css({
+                    background: "url(img/page/ba2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".btn_sentence").css({
+                    background: "url(img/page/ba1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+
+
+        $(".btn_words").mouseenter(function () {
+            $(".btn_words").css({
+                background: "url(img/page/bb2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_words == true) {
+                $(".btn_words").css({
+                    background: "url(img/page/bb2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".btn_words").css({
+                    background: "url(img/page/bb1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+        $(".btn_new_words").mouseenter(function () {
+            $(".btn_new_words").css({
+                background: "url(img/page/bc2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_new_words == true) {
+                $(".btn_new_words").css({
+                    background: "url(img/page/bc2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".btn_new_words").css({
+                    background: "url(img/page/bc1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+        $(".btn_symbol").mouseenter(function () {
+            $(".btn_symbol").css({
+                background: "url(img/page/bd2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_symbol == true) {
+                $(".btn_symbol").css({
+                    background: "url(img/page/bd2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".btn_symbol").css({
+                    background: "url(img/page/bd1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+
+
+        $("choose_sentence").mouseenter(function () {
+            $("choose_sentence").css({
+                background: "url(img/page/ca2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_sentence == true) {
+                $(".choose_sentence").css({
+                    background: "url(img/page/ca2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".choose_sentence").css({
+                    background: "url(img/page/ca1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+
+
+        $(".choose_words").mouseenter(function () {
+            $(".choose_words").css({
+                background: "url(img/page/cb2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_words == true) {
+                $(".choose_words").css({
+                    background: "url(img/page/cb2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".choose_words").css({
+                    background: "url(img/page/cb1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+        $(".choose_new_words").mouseenter(function () {
+            $(".choose_new_words").css({
+                background: "url(img/page/cc2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_new_words == true) {
+                $(".choose_new_words").css({
+                    background: "url(img/page/cc2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".choose_new_words").css({
+                    background: "url(img/page/cc1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+        $(".choose_symbol").mouseenter(function () {
+            $(".choose_symbol").css({
+                background: "url(img/page/cd2.png)",
+                backgroundSize: "cover"
+            })
+        }).mouseleave(function () {
+            if (btn_symbol == true) {
+                $(".choose_symbol").css({
+                    background: "url(img/page/cd2.png)",
+                    backgroundSize: "cover"
+                })
+            } else {
+                $(".choose_symbol").css({
+                    background: "url(img/page/cd1.png)",
+                    backgroundSize: "cover"
+                })
+            }
+
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $(".out-layout").append(`<img src="img/page/a1c.png" class="layout-img" alt="">`)
+
+        function changeColor() {
+            if (choose_class == 1) {
+                $(".box-pic1").css({
+                    background: "url(img/page/a1c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic1").css({
+                    background: "url(img/page/a1b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 2) {
+                $(".box-pic2").css({
+                    background: "url(img/page/a2c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic2").css({
+                    background: "url(img/page/a2b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 3) {
+                $(".box-pic3").css({
+                    background: "url(img/page/a3c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic3").css({
+                    background: "url(img/page/a3b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 4) {
+                $(".box-pic4").css({
+                    background: "url(img/page/a4c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic4").css({
+                    background: "url(img/page/a4b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 5) {
+                $(".box-pic5").css({
+                    background: "url(img/page/a5c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic5").css({
+                    background: "url(img/page/a5b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 6) {
+                $(".box-pic6").css({
+                    background: "url(img/page/a6c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic6").css({
+                    background: "url(img/page/a6b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 7) {
+                $(".box-pic7").css({
+                    background: "url(img/page/a7c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic7").css({
+                    background: "url(img/page/a7b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 8) {
+                $(".box-pic8").css({
+                    background: "url(img/page/a8c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic8").css({
+                    background: "url(img/page/a8b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 9) {
+                $(".box-pic9").css({
+                    background: "url(img/page/a9c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic9").css({
+                    background: "url(img/page/a9b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+            if (choose_class == 10) {
+                $(".box-pic10").css({
+                    background: "url(img/page/a10c.png)",
+                    backgroundSize: "cover"
+
+                })
+            } else {
+                $(".box-pic10").css({
+                    background: "url(img/page/a10b.png)",
+                    backgroundSize: "cover"
+
+                })
+            }
+        }
+
+
+
+        $(".class1").click(function () {
+            // control_display = 0
+            // choose_class = 1
+            // dot_control = true
+            // setword()
+            // $('.layout-img').remove()
+            // changeColor()
+
+
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+
+
+
+
+
+            // $(".out-layout").append(`<img src="img/page/a1c.png" class="layout-img"  alt="">`)
+            // $('.outside_frame').removeClass('opcZero')
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+        })
+
+        $(".class2").click(function () {
+            // control_display = 0
+            // choose_class = 2
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // console.log(control_btn)
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a2c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+
+        $(".class3").click(function () {
+            // control_display = 0
+            // dot_control = true
+
+            // choose_class = 3
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a3c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+
+        })
+
+        $(".class4").click(function () {
+            // control_display = 0
+            // choose_class = 4
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a4c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+        $(".class5").click(function () {
+            // control_display = 0
+            // dot_control = true
+
+            // choose_class = 5
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a5c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+
+        $(".class6").click(function () {
+            control_display = 0
+            dot_control = true
+
+            choose_class = 6
+            setword()
+            changeColor()
+            $('.layout-img').remove()
+            if (control_btn == 4) {
+
+                if ($('.pic_number').length >= 1) {
+                    let pic_length = $('.pic_number').length
+                    let pic_app = 8 - pic_length
+                    for (i = 0; i < pic_app; i++) {
+                        $('.append_box_word').append(
+
+                            `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+                        )
+                    }
+                }
+                $('.append_box_word').append(`
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            `)
+            }
+            $(".out-layout").append(`<img src="img/page/a6c.png" class="layout-img"  alt="">`)
+
+            $('.outside_frame').removeClass('opcZero')
+
+            $('.classBox .btn').addClass('cover_class')
+            $('.outside_frame_main').addClass('moveOut')
+            convertSizeALL();
+
+        })
+        $(".class7").click(function () {
+            // control_display = 0
+            // choose_class = 7
+            // dot_control = true
+
+            // setword()
+
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+            //     console.log(b4_inline_style)
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a7c.png" class="layout-img"   alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+
+        $(".class8").click(function () {
+            // control_display = 0
+            // choose_class = 8
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a8c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+        $(".class9").click(function () {
+            // control_display = 0
+            // choose_class = 9
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a9c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+        })
+
+        $(".class10").click(function () {
+            // control_display = 0
+            // choose_class = 10
+            // dot_control = true
+
+            // setword()
+            // changeColor()
+            // $('.layout-img').remove()
+            // if (control_btn == 4) {
+
+            //     if ($('.pic_number').length >= 1) {
+            //         let pic_length = $('.pic_number').length
+            //         let pic_app = 8 - pic_length
+            //         for (i = 0; i < pic_app; i++) {
+            //             $('.append_box_word').append(
+
+            //                 `<img id="defaultImg" style=${b4_inline_style} class="pic_number grid${pic_length + i + 1}"'  draggable>`
+            //             )
+            //         }
+            //     }
+            //     $('.append_box_word').append(`
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
+            // <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            // `)
+            // }
+            // $(".out-layout").append(`<img src="img/page/a10c.png" class="layout-img"  alt="">`)
+
+            // $('.outside_frame').removeClass('opcZero')
+
+            // $('.classBox .btn').addClass('cover_class')
+            // $('.outside_frame_main').addClass('moveOut')
+            // convertSizeALL();
+
+
+        })
+
+        $('.class_area1').click(function () {
+            control_btn = 1
+            $('.classBox .btn').removeClass('cover_class')
+        })
+        $('.class_area2').click(function () {
+            control_btn = 2
+            $('.classBox .btn').removeClass('cover_class')
+        })
+        $('.class_area3').click(function () {
+            control_btn = 3
+            $('.classBox .btn').removeClass('cover_class')
+        })
+        $('.class_area4').click(function () {
+            control_btn = 4
+            $('.classBox .btn').removeClass('cover_class')
+        })
+
+        $('#defaultImg').draggable()
+        $('.re_btn').click(function () {
+            window.location.reload("")
+            //     $('.outside_frame_main').removeClass('moveOut')
+            //    canvas.clear()
+            //     $('.outside_frame').addClass("opcZero")
+        })
+        $('.del_btn').click(function () {
+            var r = confirm("刪除後無法回復，請問是否刪除所有字卡？");
+            if (r == true) {
+                canvas.clear()
+
+            }
+
+        })
+        const imgset = document.querySelector('.append_box_word')
+        const defaultImg = document.querySelector('#defaultImg')
+        let movingImage
+        let movingSrc
+        let imgDragOffset = {
+            offsetX: 0,
+            offsetY: 0
+        }
+        // function uploadFile(e) {
+        //     file.click()
+        // }
+        var oldimgX = ''
+        var oldimgY = ''
+
+        function saveImg(e) {
+            console.log(e.target.src)
+
+            if (e.target.tagName.toLowerCase() === 'img') {
+                movingSrc = e.target.src
+                imgDragOffset.offsetX = e.clientX - e.target.offsetLeft
+                imgDragOffset.offsetY = e.clientY - e.target.offsetTop
+                movingImage = e.target
+                oldimgX = movingImage.width / movingImage.naturalWidth
+                oldimgY = movingImage.height / movingImage.naturalHeight
+            }
+
+            // console.log(imgDragOffset)
+        }
+        var jijo = ''
+        function saveFoneImg(e) {
+            // console.log(e.targetTouches[0].clientX)
+            // console.log(e)
+
+            if (e.target.tagName.toLowerCase() === 'img') {
+
+                imgDragOffset.offsetX = e.targetTouches[0].clientX - e.target.width / 2
+                imgDragOffset.offsetY = e.targetTouches[0].clientY - e.target.height / 2
+                movingImage = e.target
+                oldimgX = movingImage.width / movingImage.naturalWidth
+                oldimgY = movingImage.height / movingImage.naturalHeight
+            }
+
+            let copyObj = movingImage.cloneNode(true);
+            document.body.appendChild(copyObj);
+            // console.log(e.targetTouches[0].clientY - e.target.offsetTop)
+            copyObj.style.position = "absolute"
+            copyObj.style.top = e.target.y + "px"
+            copyObj.style.left = e.target.x + "px"
+            copyObj.style.zIndex = "9999"
+            copyObj.style.opacity = "0.6"
+
+
+            copyObj.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
+            copyObj.style.left = e.targetTouches[0].clientX - e.target.width / 2 - spcial_move + "px"
+            jijo = copyObj
+        }
+        var odX
+        var odY
+        function drag(e) {
+
+
+            e.preventDefault();
+            console.log(e)
+            jijo.style.transition = "none"
+
+            jijo.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
+            jijo.style.left = e.targetTouches[0].clientX - e.target.width / 2 - spcial_move + "px"
+
+            odX = e.targetTouches[0].clientX - e.target.width / 2
+            odY = e.targetTouches[0].clientY - e.target.height / 2
+        }
+        var push = false
+
+        function pushimg(e) {
+            let yoyo = $('.canvas_wrapper').offset().left
+            let yoyot = $('.canvas_wrapper').offset().top
+
+            let offsetY = odY
+            let offsetX = odX
+            document.body.removeChild(jijo);
+            console.log(spcial_move)
+            let h
+            if (e.changedTouches[0].clientY - yoyot - e.target.height / 2 < 0) {
+                h = 35
+            } else if ((e.changedTouches[0].clientY - yoyot - e.target.height / 2 + e.target.height) > ($('.canvas_wrapper').height())) {
+                h = $('.canvas_wrapper').height() - e.target.height - 20
+            } else {
+                h = e.changedTouches[0].clientY - yoyot - e.target.height / 2
+            }
+            let w
+            if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 < 0) {
+                w = 0
+            }
+            else if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 + e.target.width > ($('.canvas_wrapper').width())) {
+                w = $('.canvas_wrapper').width() * 999 + e.target.width / 2
+            }
+            else {
+                w = e.changedTouches[0].clientX - yoyo - e.target.width
+            }
+            const image_qq = new fabric.Image(movingImage, {
+                width: movingImage.naturalWidth,
+                height: movingImage.naturalHeight,
+                scaleX: movingImage.width / movingImage.naturalWidth,
+                scaleY: movingImage.height / movingImage.naturalHeight,
+                top: h,
+                left: w,
+                // top: (offsetY - imgDragOffset.offsetY + jiji * 8.5) < 0 ? 35 : (offsetY - imgDragOffset.offsetY + jiji * 8.5),
+                // left: (offsetX - imgDragOffset.offsetX + popo),
+                lockScalingFlip: true
+            })
+
+
+            canvas.add(image_qq)
+            image_qq.set({
+                borderColor: 'rgba(0,0,0,0)'
+            })
+            allpic = allpic + 1
+            canvas.add(image_qq)
+            image_q[allpic] = image_qq
+        }
+        // function handleFile() {
+        //     const fileReader = new FileReader();
+        //     fileReader.readAsDataURL(this.files[0])
+        //     fileReader.onload = (e) => {
+        //         // 圖片 base64
+        //         const dataURL = e.target.result
+        //         const img = document.createElement('img')
+        //         img.draggable = true
+        //         img.src = dataURL
+        //         imgset.appendChild(img)
+        //     }
+        // }
+
+        var popo = $('.append_box_word').offset().left
+        var allpic = 0
+        var image_q = new Array()
+        function dropImg(e) {
+            const { offsetX, offsetY } = e.e
+            console.log(offsetY - imgDragOffset.offsetY + jiji * 2)
+            // var oSVG;
+            // fabric.loadSVGFromURL(movingSrc, function (object) {
+            //     oSVG = object.set({ left: 250, top: 200, angle: 0 });
+            //     oSVG = object.scale(0.25);
+            //     canvas.add(oSVG);
+            //     canvas.renderAll();
+            // });
+
+            const image_qq = new fabric.Image(movingImage, {
+                width: movingImage.naturalWidth,
+                height: movingImage.naturalHeight,
+                scaleX: movingImage.width / movingImage.naturalWidth,
+                scaleY: movingImage.height / movingImage.naturalHeight,
+                top: (offsetY - imgDragOffset.offsetY + jiji * 8.5) < 0 ? 35 : (offsetY - imgDragOffset.offsetY + jiji * 8.5),
+                left: (offsetX - imgDragOffset.offsetX + popo),
+                lockScalingFlip: true
+            })
+            // fabric.loadSVGFromURL(movingSrc, function (objects, options) {
+            //     var dollars = fabric.util.groupSVGElements(objects, options);
+            //     dollars.set({
+            //         width: movingImage.naturalWidth,
+            //         height: movingImage.naturalHeight,
+            //         scaleX: 0.5,
+            //         scaleY: 0.5,
+            //         top: (offsetY - imgDragOffset.offsetY + jiji * 8.5) < 0 ? 35 : (offsetY - imgDragOffset.offsetY + jiji * 8.5),
+            //         left: (offsetX - imgDragOffset.offsetX + popo),
+            //     });
+            //     canvas.add(dollars);
+            //     // canvas.calcOffset();
+            //     dollars.set({
+            //         borderColor: 'rgba(0,0,0,0)'
+            //     })
+            //     canvas.renderAll();
+            //     allpic = allpic + 1
+            //     // canvas.add(image_qq)
+            //     image_q[allpic] = dollars
+            // });
+
+            image_qq.set({
+                borderColor: 'rgba(0,0,0,0)'
+            })
+            allpic = allpic + 1
+            canvas.add(image_qq)
+            image_q[allpic] = image_qq
+            movingImage = ""
+        }
+
+
+
+        // canvas.addEventListener('mouseup', dropImg)
+        // alert(isAndroid)
+        // if (isAndroid || isiOS) {
+        document.oncontextmenu = function (e) {
+            e.preventDefault();
+        };
+        // defaultImg.addEventListener('touchstart', saveImg)
+        // imgset.addEventListener('touchstart', saveImg)
+        // canvas.on('mouse:up', dropImg)
+        // fabric.Image.fromURL('img/ta1.png', function (img) {
+        //     img.scale(0.5).set({
+        //         left: 150,
+        //         top: 150,
+        //         angle: -15
+        //     });
+        //     canvas.add(img).setActiveObject(img);
+        // });
+
+        // }
+
+
+        // else {
+        // canvas.on("touch:drag", dropImg)
+        canvas.on('drop', dropImg)
+        // canvas.on('touchend', dropImg)
+        // defaultImg.addEventListener('click', saveImg)
+        // imgset.addEventListener('click', saveImg)
+
+        defaultImg.addEventListener('mousedown', saveImg)
+        imgset.addEventListener('mousedown', saveImg)
+        // defaultImg.addEventListener('tap', saveImg)
+        // imgset.addEventListener('tap', saveImg)
+
+        imgset.addEventListener('touchstart', saveFoneImg)
+        // }
+        imgset.addEventListener("touchmove", drag);
+        imgset.addEventListener("touchend", pushimg);
+
+
+        if (sR > 0.30) {
+                    fabric.Object.prototype.customiseCornerIcons({
+                        settings: {
+                            borderColor: 'black',
+                            cornerSize: 50 * sR,
+                            cornerShape: 'circle',
+                            cornerBackgroundColor: 'rgba(0,0,0,0)',
+                            cornerPadding: -20
+                        },
+
+                        tr: {
+
+                            icon: 'img/page/ax.png',
+                        },
+                        br: {
+                            settings: {
+                                borderColor: '#0094dd',
+
+                                cornerShape: 'circle',
+                            },
+                            icon: 'img/page/al.png'
+                        },
+                    }, function () {
+                        canvas.renderAll()
+                    })
+                }
+                if (sR <= 0.30) {
+                    fabric.Object.prototype.customiseCornerIcons({
+                        settings: {
+                            borderColor: 'black',
+                            cornerSize: 10 * sR,
+                            cornerShape: 'circle',
+                            cornerBackgroundColor: 'rgba(0,0,0,0)',
+                            cornerPadding: -20
+                        },
+
+                        tr: {
+
+                            icon: 'img/page/ax.png',
+                        
+                        },
+                        br: {
+                  
+                            icon: 'img/page/al.png'
+                        },
+                    }, function () {
+                        canvas.renderAll()
+                    })
+                }
+            
+
+
+
+        fabric.Canvas.prototype.customiseControls({
+            tl: {
+                action: function () {
+
+                }
+            },
+            tr: {
+                action: function () {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        canvas.remove(obj)
+                    });
+                    canvas.discardActiveObject().renderAll()
+
+                },
+                cursor: 'pointer'
+            },
+            bl: {
+                action: function () {
+                }
+
+            },
+            br: {
+                action: "scale",
+                // function () {
+                //     canvas.on('mouse:down', e => {
+                //         console.log(e)
+                //     })
+                // },
+                cursor: 'pointer'
+            },
+            mb: {
+                action: function () {
+
+                }
+            },
+            mt: {
+                action: function () {
+
+                }
+            },
+            ml: {
+                action: function () {
+
+                }
+            },
+            mr: {
+                action: function () {
+
+                }
+            },
+            mtr: {
+                action: function () {
+
+                }
+            },
+        }, function () {
+
+            canvas.renderAll()
+        })
+        canvas.on('object:scaling', (e) => {
+            let yoyo = $('.canvas_wrapper').offset().left
+            let doit = e.e.clientX - 40 > spcial_move + $('.canvas_wrapper').width() + yoyo
+            let targetH = e.target.scaleY
+
+            let canvasH = ($(".canvas_wrapper").height() - Math.ceil(e.target.top)) / e.target.height
+            // let targetH = e.target.scaleY
+            // let canvasH = ($(".canvas_wrapper").height() )/e.target.height
+            // console.log(targetH)
+            // console.log(canvasH)
+            console.log(e)
+            if(e.target.height>300){
+                if ($(".canvas_wrapper").height() >= 450) {
+                if (targetH > canvasH * 0.9) {
+                    e.target.scaleY = canvasH * 0.9
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.9) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.9
+                        obj.scaleX = canvasH * 0.9
+
+                    });
+                }
+            } else if ($(".canvas_wrapper").height() >= 250 && $(".canvas_wrapper").height() <= 450) {
+                if (targetH > canvasH * 0.9) {
+                    e.target.scaleY = canvasH * 0.9
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.9) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.9
+                        obj.scaleX = canvasH * 0.9
+
+                    });
+                }
+            }
+            else {
+                if (targetH > canvasH * 0.85) {
+                    e.target.scaleY = canvasH * 0.85
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.85) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.85
+                        obj.scaleX = canvasH * 0.85
+
+                    });
+                }
+            }
+            }else{
+                if ($(".canvas_wrapper").height() >= 450) {
+                if (targetH > canvasH * 0.85) {
+                    e.target.scaleY = canvasH * 0.85
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.85) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.85
+                        obj.scaleX = canvasH * 0.85
+
+                    });
+                }
+            } else if ($(".canvas_wrapper").height() >= 250 && $(".canvas_wrapper").height() <= 450) {
+                if (targetH > canvasH * 0.85) {
+                    e.target.scaleY = canvasH * 0.85
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.85) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.85
+                        obj.scaleX = canvasH * 0.85
+
+                    });
+                }
+            }
+            else {
+                if (targetH > canvasH * 0.80) {
+                    e.target.scaleY = canvasH * 0.80
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.80) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.80
+                        obj.scaleX = canvasH * 0.80
+
+                    });
+                }
+            }
+            }
+
+
+      
+
+
+            console.log($(".canvas_wrapper").height())
+            Math.ceil(e.target.top)
+            // $(".canvas_wrapper").mouseleave(function(){
+            //     let targetH = e.target.scaleY
+            //     console.log(targetH)
+            // })
+            // if(e.target.scaleY>1.7){
+            //     canvas.getActiveObjects().forEach((obj) => {
+            //         obj.scaleY = 1.7
+            // });
+            // }
+        })
+        canvas.on('object:selected', (e) => {
+            canvas.getActiveObjects().forEach((obj) => {
+                console.log(obj)
+                canvas.bringToFront(obj)
+            });
+            // canvas.discardActiveObject().renderAll()
+            canvas.renderAll()
+
+        })
+
+        canvas.on('object:moving', (e) => {
+            console.log(e)
+            var w = 1920, h = 900;
+            var iw = $(window).innerWidth(), ih = $(window).innerHeight();
+            var pRatio = window.devicePixelRatio || 0, xRatio = iw / w, yRatio = ih / h, sRatio = 1;
+            sRatio = Math.min(xRatio, yRatio);
+            if (e.target.top < 50 * sRatio) {
+                canvas.getActiveObjects().forEach((obj) => {
+                    console.log(obj)
+                    obj.top = 50 * sRatio
+
+                });
+                // canvas.discardActiveObject().renderAll()
+                canvas.renderAll()
+            }
+            if (e.target.left < 0) {
+                canvas.getActiveObjects().forEach((obj) => {
+                    console.log(obj)
+                    obj.left = 0
+
+                });
+                // canvas.discardActiveObject().renderAll()
+                canvas.renderAll()
+            }
+
+            if (e.target.top + (e.target.height * e.target.scaleX) + 50 * sRatio > $(".canvas_wrapper").height()) {
+                canvas.getActiveObjects().forEach((obj) => {
+                    // console.log(obj)
+                    obj.top = $(".canvas_wrapper").height() - (e.target.height * e.target.scaleX) - 50 * sRatio
+
+                });
+                // canvas.discardActiveObject().renderAll()
+                canvas.renderAll()
+            }
+            if (e.target.left + (e.target.width * e.target.scaleY) + 50 * sRatio > $(".canvas_wrapper").width()) {
+                canvas.getActiveObjects().forEach((obj) => {
+                    // console.log(obj)
+                    obj.left = $(".canvas_wrapper").width() - (e.target.width * e.target.scaleY) - 50 * sRatio
+
+                });
+                // canvas.discardActiveObject().renderAll()
+                canvas.renderAll()
+            }
+        })
+
+
+        canvas.on('mouse:up', e => {
+            if (e.target) {
+                console.log(sR)
+                if (sR > 0.30) {
+                    fabric.Object.prototype.customiseCornerIcons({
+                        settings: {
+                            borderColor: 'black',
+                            cornerSize: 80*sR,
+                            cornerShape: 'circle',
+                            cornerBackgroundColor: 'rgba(0,0,0,0)',
+                        },
+
+                        tr: {
+
+                            icon: 'img/page/ax.png',
+                        },
+                        br: {
+                            settings: {
+                                borderColor: '#0094dd',
+
+                                cornerShape: 'circle',
+                            },
+                            icon: 'img/page/al.png'
+                        },
+                    }, function () {
+                        canvas.renderAll()
+                    })
+                }
+                if (sR <= 0.30) {
+                    fabric.Object.prototype.customiseCornerIcons({
+                        settings: {
+                            borderColor: 'black',
+                            cornerSize: 15,
+                            cornerShape: 'circle',
+                            cornerBackgroundColor: 'rgba(0,0,0,0)',
+                        },
+
+                        tr: {
+
+                            icon: 'img/page/ax.png',
+                        
+                        },
+                        br: {
+                  
+                            icon: 'img/page/al.png'
+                        },
+                    }, function () {
+                        canvas.renderAll()
+                    })
+                }
+            }
+
+
+        })
+        fabric.Object.prototype.setControlsVisibility({
+            bl: false, // 左下
+            br: true, // 右下
+            mb: false, // 下中
+            ml: false, // 中左
+            mr: false, // 中右
+            mt: false, // 上中
+            tl: false, // 上左
+            tr: true, // 上右
+            mtr: false // 旋轉控制鍵
+        })
+
+        fabric.Canvas.prototype.cursorMap[1] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[2] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[3] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[4] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[5] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[6] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[7] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[8] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[9] = 'pointer'
+        // fabric.Canvas.prototype.cursorMap[1] = 'pointer'
+
+            }
+
+    </script>
+    <script src="js/resize.js"></script>
+    <script src="js/jq_touch_punch.js"></script>
+
+</body>
+
+</html>

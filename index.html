@@ -750,13 +750,7 @@
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
 if(isiOS){
-         // jQuery(document).ready(function ($) {
-            var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-
-
-        //     // function Close() {
+           //     // function Close() {
         //     //     window.open('', '_self', '');
         //     //     // setInterval(function () { window.close() }
         //     //     // ,100)
@@ -2619,6 +2613,8 @@ if(isiOS){
             }
 
 
+
+
         })
         fabric.Object.prototype.setControlsVisibility({
             bl: false, // 左下
@@ -2642,7 +2638,11 @@ if(isiOS){
         // fabric.Canvas.prototype.cursorMap[8] = 'pointer'
         // fabric.Canvas.prototype.cursorMap[9] = 'pointer'
         // fabric.Canvas.prototype.cursorMap[1] = 'pointer'
+
+
 }
+
+
 if(isiOS==false){
 
 
@@ -4201,9 +4201,7 @@ if(isiOS==false){
             image_qq.set({
                 borderColor: 'rgba(0,0,0,0)'
             })
-            allpic = allpic + 1
             canvas.add(image_qq)
-            image_q[allpic] = image_qq
         }
         // function handleFile() {
         //     const fileReader = new FileReader();
@@ -4265,9 +4263,7 @@ if(isiOS==false){
             image_qq.set({
                 borderColor: 'rgba(0,0,0,0)'
             })
-            allpic = allpic + 1
             canvas.add(image_qq)
-            image_q[allpic] = image_qq
             movingImage = ""
         }
 

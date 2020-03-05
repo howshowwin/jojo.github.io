@@ -38,8 +38,8 @@ function convertSizeALL(className) {
     $("body").css("margin-left", (iw - Math.round(w * sRatio)) / 2);
     $("body").css("margin-top", "0");
     $("body").css("zoom", "100%");
-    canvas.setHeight(900 * sRatio);
-    canvas.setWidth(1340 * sRatio);
+    // canvas.setHeight(900 * sRatio);
+    // canvas.setWidth(1340 * sRatio);
     sR = Math.min(xRatio, yRatio);
     spcial_move = (iw - Math.round(w * sRatio)) / 2
     b4_inline_style = `width:${Math.round(90 * sRatio) + "px"};height:auto;`
@@ -66,8 +66,8 @@ function convertSizeALL(className) {
 
     $('.append_box_word').css({ width: Math.round(300 * sRatio), height: Math.round(300 * sRatio) })
     $('.canvas_wrapper ').css({ width: Math.round(1340 * sRatio), height: Math.round(900 * sRatio) })
-    canvasHH = Math.round(847 * sRatio)
-    canvasWW = Math.round(1340 * sRatio)
+    // canvasHH = Math.round(847 * sRatio)
+    // canvasWW = Math.round(1340 * sRatio)
     $('.next img,.pre img').css({ width: Math.round(40 * sRatio), height: Math.round(40 * sRatio) })
     $('.ab-bb-next img,.ab-bb-pre img').css({ width: Math.round(40 * sRatio), height: Math.round(40 * sRatio) })
     $('.classindex img').css({ width: Math.round(168 * sRatio), height: Math.round(168 * sRatio) })
@@ -111,27 +111,27 @@ function convertSizeALL(className) {
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
 // if(isiOS==false){
-    let scalenow = parseInt(change_img) / parseInt(width_img)
-    image_q.forEach((obj) => {
-        console.log(obj._element.x
-        )
+    // let scalenow = parseInt(change_img) / parseInt(width_img)
+    // image_q.forEach((obj) => {
+    //     console.log(obj._element.x
+    //     )
 
-        obj.scaleX = obj.scaleX * scalenow
+    //     obj.scaleX = obj.scaleX * scalenow
 
-        obj.scaleY = obj.scaleY * scalenow
-        obj.left = obj.left * scalenow
-        obj.top = obj.top * scalenow
-        //這樣才會改變控制
-        obj.setCoords()
-        // obj.width=  obj._element.naturalWidth* scalenow
-        // obj.height=  obj._element.naturalHeigh* scalenow
+    //     obj.scaleY = obj.scaleY * scalenow
+    //     obj.left = obj.left * scalenow
+    //     obj.top = obj.top * scalenow
+    //     //這樣才會改變控制
+    //     obj.setCoords()
+    //     // obj.width=  obj._element.naturalWidth* scalenow
+    //     // obj.height=  obj._element.naturalHeigh* scalenow
 
 
-    });
+    // });
 
-    canvas.discardActiveObject().renderAll()
     // canvas.discardActiveObject().renderAll()
-    canvas.renderAll()
+    // // canvas.discardActiveObject().renderAll()
+    // canvas.renderAll()
 // }
 
     setword()

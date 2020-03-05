@@ -69,12 +69,18 @@ function convertSizeALL(className) {
 
     $('.append_box_word').css({ width: Math.round(300 * sRatio), height: Math.round(300 * sRatio) })
     $('.canvas_wrapper ').css({ width: Math.round(1340 * sRatio), height: Math.round(900 * sRatio) })
+    function isMobile() {
 
-    if (isiOS == false && isAndroid == false) {
-        canvas.setHeight(900 * sRatio);
-        canvas.setWidth(1340 * sRatio);
+        try { document.createEvent("TouchEvent"); return true; }
+
+        catch (e) { return false; }
 
     }
+    if (isMobile()==false) {
+        canvas.setHeight(900 * sRatio);
+        canvas.setWidth(1340 * sRatio);
+    }
+  
     $('.next img,.pre img').css({ width: Math.round(40 * sRatio), height: Math.round(40 * sRatio) })
     $('.ab-bb-next img,.ab-bb-pre img').css({ width: Math.round(40 * sRatio), height: Math.round(40 * sRatio) })
     $('.classindex img').css({ width: Math.round(168 * sRatio), height: Math.round(168 * sRatio) })

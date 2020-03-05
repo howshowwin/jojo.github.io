@@ -24,11 +24,9 @@
     <script src="data/data_10.js"></script>
     <script src="js/customiseControls.js"></script>
     <style type="text/css">
-        body {
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            position: relative;
-        }
+
+
+
     </style>
 
 
@@ -36,6 +34,13 @@
     <!-- <link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.min.css"> -->
     <!-- <script src="js/cannotdrag.js"></script> -->
     <style>
+        body {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            position: relative;
+            zoom: 1;
+        }
+
         .outside_frame {
             background: url(img/page/p1.png);
             position: relative;
@@ -99,7 +104,6 @@
                 "grid100 grid101 grid102 grid103 ";
         }
 
-        canvas {}
 
         .grid1 {
             grid-area: grid1;
@@ -163,10 +167,10 @@
         }
 
         .canvas_wrapper {
+            overflow: hidden;
             position: absolute;
             top: 2%;
             left: 3%;
-            overflow: hidden;
             /* border: 2px solid red; */
 
         }
@@ -204,7 +208,7 @@
         .class8 img,
         .class9 img,
         .class10 img {
-            filter: brightness(20%);
+            filter: brightness(60%);
             cursor: not-allowed;
 
         }
@@ -219,7 +223,7 @@
             /* pointer-events: none; */
             /* cursor: not-allowed; */
             cursor: not-allowed;
-            filter: brightness(108%);
+            filter: brightness(102%);
 
         }
 
@@ -531,8 +535,8 @@
         .tools {
             display: flex;
             position: absolute;
-            bottom: 0;
-            right: 0;
+            bottom: 0.1%;
+            right: 0.1%;
         }
 
         .tool-img:hover {
@@ -784,7 +788,7 @@
 
 
         var append_box_word = document.querySelector(".append_box_word")
-        var sRatio = 0
+        var sRatio = 1
         var close_topright = ""
         var w = 1920, h = 900;
         var iw = $(window).innerWidth(), ih = $(window).innerHeight();
@@ -795,12 +799,10 @@
         var close_topright = 50 * sRatio
 
         // 
-        const canvas = new fabric.Canvas('canvas', {
-            width: 1340,
-            height: 837
+        var canvas = new fabric.Canvas('canvas');
+        canvas.setHeight(4000);
+        canvas.setWidth(6000);
 
-
-        })
         var body = document.querySelector('body')
 
 
@@ -1026,10 +1028,10 @@
 
 
                 $('.append_box_word').append(`
-<img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
-<img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
-<img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
-<img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+<img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
 `)
             }
 
@@ -1058,10 +1060,10 @@
 
 
                 $('.append_box_word').append(`
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
             `)
             }
         })
@@ -1088,10 +1090,10 @@
 
 
                 $('.append_box_word').append(`
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
             `)
             }
         })
@@ -1445,10 +1447,10 @@
                 }
             }
             $('.append_box_word').append(`
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.png'  draggable>
-            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.png'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid100" src='img/page/0.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid101" src='img/page/1.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid102" src='img/page/2.svg'  draggable>
+            <img id="defaultImg" style=${b4_inline_style} class="pic_number grid103" src='img/page/3.svg'  draggable>
             `)
 
         })
@@ -2179,7 +2181,7 @@
             //     $('.outside_frame').addClass("opcZero")
         })
         $('.del_btn').click(function () {
-            var r = confirm("刪除後無法回復，確認刪除?");
+            var r = confirm("刪除後無法回復，請問是否刪除所有字卡？");
             if (r == true) {
                 canvas.clear()
 
@@ -2189,6 +2191,7 @@
         const imgset = document.querySelector('.append_box_word')
         const defaultImg = document.querySelector('#defaultImg')
         let movingImage
+        let movingSrc
         let imgDragOffset = {
             offsetX: 0,
             offsetY: 0
@@ -2200,10 +2203,10 @@
         var oldimgY = ''
 
         function saveImg(e) {
-            console.log(e)
+            console.log(e.target.src)
 
             if (e.target.tagName.toLowerCase() === 'img') {
-
+                movingSrc = e.target.src
                 imgDragOffset.offsetX = e.clientX - e.target.offsetLeft
                 imgDragOffset.offsetY = e.clientY - e.target.offsetTop
                 movingImage = e.target
@@ -2238,7 +2241,7 @@
 
 
             copyObj.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
-            copyObj.style.left = e.targetTouches[0].clientX - e.target.width / 2- spcial_move + "px"
+            copyObj.style.left = e.targetTouches[0].clientX - e.target.width / 2 - spcial_move + "px"
             jijo = copyObj
         }
         var odX
@@ -2251,7 +2254,7 @@
             jijo.style.transition = "none"
 
             jijo.style.top = e.targetTouches[0].clientY - e.target.height / 2 + "px"
-            jijo.style.left = e.targetTouches[0].clientX - e.target.width / 2 - spcial_move+ "px"
+            jijo.style.left = e.targetTouches[0].clientX - e.target.width / 2 - spcial_move + "px"
 
             odX = e.targetTouches[0].clientX - e.target.width / 2
             odY = e.targetTouches[0].clientY - e.target.height / 2
@@ -2275,14 +2278,14 @@
                 h = e.changedTouches[0].clientY - yoyot - e.target.height / 2
             }
             let w
-            if (e.changedTouches[0].clientX - yoyo - e.target.width / 2  < 0) {
+            if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 < 0) {
                 w = 0
             }
             else if (e.changedTouches[0].clientX - yoyo - e.target.width / 2 + e.target.width > ($('.canvas_wrapper').width())) {
-                w = $('.canvas_wrapper').width()*999 + e.target.width/2 
+                w = $('.canvas_wrapper').width() * 999 + e.target.width / 2
             }
-            else{
-                w = e.changedTouches[0].clientX - yoyo - e.target.width 
+            else {
+                w = e.changedTouches[0].clientX - yoyo - e.target.width
             }
             const image_qq = new fabric.Image(movingImage, {
                 width: movingImage.naturalWidth,
@@ -2290,7 +2293,7 @@
                 scaleX: movingImage.width / movingImage.naturalWidth,
                 scaleY: movingImage.height / movingImage.naturalHeight,
                 top: h,
-                left: w ,
+                left: w,
                 // top: (offsetY - imgDragOffset.offsetY + jiji * 8.5) < 0 ? 35 : (offsetY - imgDragOffset.offsetY + jiji * 8.5),
                 // left: (offsetX - imgDragOffset.offsetX + popo),
                 lockScalingFlip: true
@@ -2301,6 +2304,9 @@
             image_qq.set({
                 borderColor: 'rgba(0,0,0,0)'
             })
+            allpic = allpic + 1
+            canvas.add(image_qq)
+            image_q[allpic] = image_qq
         }
         // function handleFile() {
         //     const fileReader = new FileReader();
@@ -2316,11 +2322,19 @@
         // }
 
         var popo = $('.append_box_word').offset().left
-
-
+        var allpic = 0
+        var image_q = new Array()
         function dropImg(e) {
             const { offsetX, offsetY } = e.e
             console.log(offsetY - imgDragOffset.offsetY + jiji * 2)
+            // var oSVG;
+            // fabric.loadSVGFromURL(movingSrc, function (object) {
+            //     oSVG = object.set({ left: 250, top: 200, angle: 0 });
+            //     oSVG = object.scale(0.25);
+            //     canvas.add(oSVG);
+            //     canvas.renderAll();
+            // });
+
             const image_qq = new fabric.Image(movingImage, {
                 width: movingImage.naturalWidth,
                 height: movingImage.naturalHeight,
@@ -2330,12 +2344,33 @@
                 left: (offsetX - imgDragOffset.offsetX + popo),
                 lockScalingFlip: true
             })
+            // fabric.loadSVGFromURL(movingSrc, function (objects, options) {
+            //     var dollars = fabric.util.groupSVGElements(objects, options);
+            //     dollars.set({
+            //         width: movingImage.naturalWidth,
+            //         height: movingImage.naturalHeight,
+            //         scaleX: 0.5,
+            //         scaleY: 0.5,
+            //         top: (offsetY - imgDragOffset.offsetY + jiji * 8.5) < 0 ? 35 : (offsetY - imgDragOffset.offsetY + jiji * 8.5),
+            //         left: (offsetX - imgDragOffset.offsetX + popo),
+            //     });
+            //     canvas.add(dollars);
+            //     // canvas.calcOffset();
+            //     dollars.set({
+            //         borderColor: 'rgba(0,0,0,0)'
+            //     })
+            //     canvas.renderAll();
+            //     allpic = allpic + 1
+            //     // canvas.add(image_qq)
+            //     image_q[allpic] = dollars
+            // });
 
-
-            canvas.add(image_qq)
             image_qq.set({
                 borderColor: 'rgba(0,0,0,0)'
             })
+            allpic = allpic + 1
+            canvas.add(image_qq)
+            image_q[allpic] = image_qq
             movingImage = ""
         }
 
@@ -2380,30 +2415,57 @@
         imgset.addEventListener("touchend", pushimg);
 
 
-        fabric.Object.prototype.customiseCornerIcons({
-            settings: {
-                borderColor: 'black',
-                cornerSize: 30,
-                cornerShape: 'circle',
-                cornerBackgroundColor: 'rgba(0,0,0,0)',
-                cornerPadding: 0
-            },
+        if (sR > 0.30) {
+                    fabric.Object.prototype.customiseCornerIcons({
+                        settings: {
+                            borderColor: 'black',
+                            cornerSize: 50 * sR,
+                            cornerShape: 'circle',
+                            cornerBackgroundColor: 'rgba(0,0,0,0)',
+                            cornerPadding: -20
+                        },
 
-            tr: {
+                        tr: {
 
-                icon: 'img/page/ax.png',
-            },
-            br: {
-                settings: {
-                    borderColor: '#0094dd',
+                            icon: 'img/page/ax.png',
+                        },
+                        br: {
+                            settings: {
+                                borderColor: '#0094dd',
 
-                    cornerShape: 'circle',
-                },
-                icon: 'img/page/al.png'
-            },
-        }, function () {
-            canvas.renderAll()
-        })
+                                cornerShape: 'circle',
+                            },
+                            icon: 'img/page/al.png'
+                        },
+                    }, function () {
+                        canvas.renderAll()
+                    })
+                }
+                if (sR <= 0.30) {
+                    fabric.Object.prototype.customiseCornerIcons({
+                        settings: {
+                            borderColor: 'black',
+                            cornerSize: 10 * sR,
+                            cornerShape: 'circle',
+                            cornerBackgroundColor: 'rgba(0,0,0,0)',
+                            cornerPadding: -20
+                        },
+
+                        tr: {
+
+                            icon: 'img/page/ax.png',
+                        
+                        },
+                        br: {
+                  
+                            icon: 'img/page/al.png'
+                        },
+                    }, function () {
+                        canvas.renderAll()
+                    })
+                }
+            
+
 
 
         fabric.Canvas.prototype.customiseControls({
@@ -2466,35 +2528,82 @@
             canvas.renderAll()
         })
         canvas.on('object:scaling', (e) => {
+            let yoyo = $('.canvas_wrapper').offset().left
+            let doit = e.e.clientX - 40 > spcial_move + $('.canvas_wrapper').width() + yoyo
             let targetH = e.target.scaleY
+
             let canvasH = ($(".canvas_wrapper").height() - Math.ceil(e.target.top)) / e.target.height
             // let targetH = e.target.scaleY
             // let canvasH = ($(".canvas_wrapper").height() )/e.target.height
             // console.log(targetH)
             // console.log(canvasH)
-            if ($(".canvas_wrapper").height() >= 450) {
-                if (targetH > canvasH * 0.95) {
-                    e.target.scaleY = canvasH * 0.95
+            console.log(e)
+            if(e.target.height>300){
+                if ($(".canvas_wrapper").height() >= 450) {
+                if (targetH > canvasH * 0.9) {
+                    e.target.scaleY = canvasH * 0.9
 
                 }
                 // console.log(oldimgX)
-                if (targetH > canvasH * 0.95) {
+                if (targetH > canvasH * 0.9) {
                     canvas.getActiveObjects().forEach((obj) => {
-                        obj.scaleY = canvasH * 0.95
-                        obj.scaleX = canvasH * 0.95
+                        obj.scaleY = canvasH * 0.9
+                        obj.scaleX = canvasH * 0.9
 
                     });
                 }
             } else if ($(".canvas_wrapper").height() >= 250 && $(".canvas_wrapper").height() <= 450) {
-                if (targetH > canvasH * 0.90) {
-                    e.target.scaleY = canvasH * 0.90
+                if (targetH > canvasH * 0.9) {
+                    e.target.scaleY = canvasH * 0.9
 
                 }
                 // console.log(oldimgX)
-                if (targetH > canvasH * 0.95) {
+                if (targetH > canvasH * 0.9) {
                     canvas.getActiveObjects().forEach((obj) => {
-                        obj.scaleY = canvasH * 0.90
-                        obj.scaleX = canvasH * 0.90
+                        obj.scaleY = canvasH * 0.9
+                        obj.scaleX = canvasH * 0.9
+
+                    });
+                }
+            }
+            else {
+                if (targetH > canvasH * 0.85) {
+                    e.target.scaleY = canvasH * 0.85
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.85) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.85
+                        obj.scaleX = canvasH * 0.85
+
+                    });
+                }
+            }
+            }else{
+                if ($(".canvas_wrapper").height() >= 450) {
+                if (targetH > canvasH * 0.85) {
+                    e.target.scaleY = canvasH * 0.85
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.85) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.85
+                        obj.scaleX = canvasH * 0.85
+
+                    });
+                }
+            } else if ($(".canvas_wrapper").height() >= 250 && $(".canvas_wrapper").height() <= 450) {
+                if (targetH > canvasH * 0.85) {
+                    e.target.scaleY = canvasH * 0.85
+
+                }
+                // console.log(oldimgX)
+                if (targetH > canvasH * 0.85) {
+                    canvas.getActiveObjects().forEach((obj) => {
+                        obj.scaleY = canvasH * 0.85
+                        obj.scaleX = canvasH * 0.85
 
                     });
                 }
@@ -2505,7 +2614,7 @@
 
                 }
                 // console.log(oldimgX)
-                if (targetH > canvasH * 0.85) {
+                if (targetH > canvasH * 0.80) {
                     canvas.getActiveObjects().forEach((obj) => {
                         obj.scaleY = canvasH * 0.80
                         obj.scaleX = canvasH * 0.80
@@ -2513,6 +2622,10 @@
                     });
                 }
             }
+            }
+
+
+      
 
 
             console.log($(".canvas_wrapper").height())
@@ -2538,11 +2651,15 @@
         })
 
         canvas.on('object:moving', (e) => {
-
-            if (e.target.top < 28) {
+            console.log(e)
+            var w = 1920, h = 900;
+            var iw = $(window).innerWidth(), ih = $(window).innerHeight();
+            var pRatio = window.devicePixelRatio || 0, xRatio = iw / w, yRatio = ih / h, sRatio = 1;
+            sRatio = Math.min(xRatio, yRatio);
+            if (e.target.top < 50 * sRatio) {
                 canvas.getActiveObjects().forEach((obj) => {
                     console.log(obj)
-                    obj.top = 28
+                    obj.top = 50 * sRatio
 
                 });
                 // canvas.discardActiveObject().renderAll()
@@ -2558,19 +2675,19 @@
                 canvas.renderAll()
             }
 
-            if (e.target.top + (e.target.height * e.target.scaleX) + 20 > $(".canvas_wrapper").height()) {
+            if (e.target.top + (e.target.height * e.target.scaleX) + 50 * sRatio > $(".canvas_wrapper").height()) {
                 canvas.getActiveObjects().forEach((obj) => {
                     // console.log(obj)
-                    obj.top = $(".canvas_wrapper").height() - (e.target.height * e.target.scaleX) - 25
+                    obj.top = $(".canvas_wrapper").height() - (e.target.height * e.target.scaleX) - 50 * sRatio
 
                 });
                 // canvas.discardActiveObject().renderAll()
                 canvas.renderAll()
             }
-            if (e.target.left + (e.target.width * e.target.scaleY) + 20 > $(".canvas_wrapper").width()) {
+            if (e.target.left + (e.target.width * e.target.scaleY) + 50 * sRatio > $(".canvas_wrapper").width()) {
                 canvas.getActiveObjects().forEach((obj) => {
                     // console.log(obj)
-                    obj.left = $(".canvas_wrapper").width() - (e.target.width * e.target.scaleY) - 25
+                    obj.left = $(".canvas_wrapper").width() - (e.target.width * e.target.scaleY) - 50 * sRatio
 
                 });
                 // canvas.discardActiveObject().renderAll()
@@ -2579,33 +2696,56 @@
         })
 
 
-
         canvas.on('mouse:up', e => {
             if (e.target) {
-                fabric.Object.prototype.customiseCornerIcons({
-                    settings: {
-                        borderColor: 'black',
-                        cornerSize: 30,
-                        cornerShape: 'circle',
-                        cornerBackgroundColor: 'rgba(0,0,0,0)',
-                        cornerPadding: -20
-                    },
-
-                    tr: {
-
-                        icon: 'img/page/ax.png',
-                    },
-                    br: {
+                console.log(sR)
+                if (sR > 0.30) {
+                    fabric.Object.prototype.customiseCornerIcons({
                         settings: {
-                            borderColor: '#0094dd',
-
+                            borderColor: 'black',
+                            cornerSize: 80*sR,
                             cornerShape: 'circle',
+                            cornerBackgroundColor: 'rgba(0,0,0,0)',
                         },
-                        icon: 'img/page/al.png'
-                    },
-                }, function () {
-                    canvas.renderAll()
-                })
+
+                        tr: {
+
+                            icon: 'img/page/ax.png',
+                        },
+                        br: {
+                            settings: {
+                                borderColor: '#0094dd',
+
+                                cornerShape: 'circle',
+                            },
+                            icon: 'img/page/al.png'
+                        },
+                    }, function () {
+                        canvas.renderAll()
+                    })
+                }
+                if (sR <= 0.30) {
+                    fabric.Object.prototype.customiseCornerIcons({
+                        settings: {
+                            borderColor: 'black',
+                            cornerSize: 15,
+                            cornerShape: 'circle',
+                            cornerBackgroundColor: 'rgba(0,0,0,0)',
+                        },
+
+                        tr: {
+
+                            icon: 'img/page/ax.png',
+                        
+                        },
+                        br: {
+                  
+                            icon: 'img/page/al.png'
+                        },
+                    }, function () {
+                        canvas.renderAll()
+                    })
+                }
             }
 
 
@@ -2634,6 +2774,22 @@
         // fabric.Canvas.prototype.cursorMap[1] = 'pointer'
 
 
+    </script>
+
+    <script language="javascript">
+        var scrollFunc = function (e) {
+            e = e || window.event;
+            if (e.wheelDelta && event.ctrlKey) {//IE/Opera/Chrome
+                event.returnValue = false;
+            } else if (e.detail) {//Firefox
+                event.returnValue = false;
+            }
+        }
+        /*注册事件*/
+        if (document.addEventListener) {
+            document.addEventListener('DOMMouseScroll', scrollFunc, false);
+        }//W3C
+        window.onmousewheel = document.onmousewheel = scrollFunc;//IE/Opera/Chrome/Safari
     </script>
     <script src="js/resize.js"></script>
     <script src="js/jq_touch_punch.js"></script>

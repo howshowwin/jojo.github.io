@@ -124,9 +124,9 @@ function convertSizeALL(className) {
 
     });
 
-    canvas.discardActiveObject().renderAll()
     // canvas.discardActiveObject().renderAll()
-    canvas.renderAll()
+    // // canvas.discardActiveObject().renderAll()
+    // canvas.renderAll()
     setword()
     width_img = change_img
     // width_img = $("#defaultImg").css('width')

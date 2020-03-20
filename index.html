@@ -2208,7 +2208,7 @@
         function saveImg(e) {
             console.log(e.target.src)
 
-            if (e.target.tagName.toLowerCase() === 'img') {
+            if (e.target.id == 'defaultImg') {
                 movingSrc = e.target.src
                 imgDragOffset.offsetX = e.clientX - e.target.offsetLeft
                 imgDragOffset.offsetY = e.clientY - e.target.offsetTop
@@ -2225,7 +2225,7 @@
             // console.log(e.targetTouches[0].clientX)
             // console.log(e)
 
-            if (e.target.tagName.toLowerCase() === 'img') {
+            if (e.target.id == 'defaultImg') {
 
                 imgDragOffset.offsetX = e.targetTouches[0].clientX - e.target.width / 2
                 imgDragOffset.offsetY = e.targetTouches[0].clientY - e.target.height / 2
